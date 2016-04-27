@@ -80,32 +80,26 @@
 
 
 
-<meta name="description" content="先放效果图:
-
-提出问题如图所示,是一个我们现在应用中经常使用的一个控件,一个带删除功能的EditText,可能在你自己的app中所有的EditText控件都带删除功能,如果我们笨笨的使用线性或者相对布局来排列这三个控件,这样会出现两个问题:
+<meta name="description" content="提出问题如图所示,是一个我们现在应用中经常使用的一个控件,一个带删除功能的EditText,可能在你自己的app中所有的EditText控件都带删除功能,如果我们笨笨的使用线性或者相对布局来排列这三个控件,这样会出现两个问题:
 
 代码过长,不易于查看,想想如果一个界面里面出现3个以上这种控件,xml布局中会出现很冗长的重复代码;
-同样不易于维护,当产品要对整个app的EditTex">
+同样不易于维护,当产品要对整个app的EditText做出UI的修改">
 <meta property="og:type" content="article">
 <meta property="og:title" content="自定义带删除功能的EditText">
 <meta property="og:url" content="http://yoursite.com/2016/04/26/自定义带删除功能的EditText/index.html">
 <meta property="og:site_name" content="麦芽糖的糖屋">
-<meta property="og:description" content="先放效果图:
-
-提出问题如图所示,是一个我们现在应用中经常使用的一个控件,一个带删除功能的EditText,可能在你自己的app中所有的EditText控件都带删除功能,如果我们笨笨的使用线性或者相对布局来排列这三个控件,这样会出现两个问题:
+<meta property="og:description" content="提出问题如图所示,是一个我们现在应用中经常使用的一个控件,一个带删除功能的EditText,可能在你自己的app中所有的EditText控件都带删除功能,如果我们笨笨的使用线性或者相对布局来排列这三个控件,这样会出现两个问题:
 
 代码过长,不易于查看,想想如果一个界面里面出现3个以上这种控件,xml布局中会出现很冗长的重复代码;
-同样不易于维护,当产品要对整个app的EditTex">
+同样不易于维护,当产品要对整个app的EditText做出UI的修改">
 <meta property="og:image" content="http://7xtdu4.com1.z0.glb.clouddn.com/%E8%87%AA%E5%AE%9A%E4%B9%89%E5%B8%A6%E5%88%A0%E9%99%A4%E5%8A%9F%E8%83%BD%E7%9A%84EditText.gif">
-<meta property="og:updated_time" content="2016-04-26T15:10:29.192Z">
+<meta property="og:updated_time" content="2016-04-27T12:55:38.306Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="自定义带删除功能的EditText">
-<meta name="twitter:description" content="先放效果图:
-
-提出问题如图所示,是一个我们现在应用中经常使用的一个控件,一个带删除功能的EditText,可能在你自己的app中所有的EditText控件都带删除功能,如果我们笨笨的使用线性或者相对布局来排列这三个控件,这样会出现两个问题:
+<meta name="twitter:description" content="提出问题如图所示,是一个我们现在应用中经常使用的一个控件,一个带删除功能的EditText,可能在你自己的app中所有的EditText控件都带删除功能,如果我们笨笨的使用线性或者相对布局来排列这三个控件,这样会出现两个问题:
 
 代码过长,不易于查看,想想如果一个界面里面出现3个以上这种控件,xml布局中会出现很冗长的重复代码;
-同样不易于维护,当产品要对整个app的EditTex">
+同样不易于维护,当产品要对整个app的EditText做出UI的修改">
 <meta name="twitter:image" content="http://7xtdu4.com1.z0.glb.clouddn.com/%E8%87%AA%E5%AE%9A%E4%B9%89%E5%B8%A6%E5%88%A0%E9%99%A4%E5%8A%9F%E8%83%BD%E7%9A%84EditText.gif">
 
 
@@ -291,15 +285,16 @@
       
 
       
-        <p>先放效果图:</p>
-<p><img src="http://7xtdu4.com1.z0.glb.clouddn.com/%E8%87%AA%E5%AE%9A%E4%B9%89%E5%B8%A6%E5%88%A0%E9%99%A4%E5%8A%9F%E8%83%BD%E7%9A%84EditText.gif" alt=""></p>
-<h3 id="提出问题"><a href="#提出问题" class="headerlink" title="提出问题"></a>提出问题</h3><p>如图所示,是一个我们现在应用中经常使用的一个控件,一个带删除功能的EditText,可能在你自己的app中所有的EditText控件都带删除功能,如果我们笨笨的使用线性或者相对布局来排列这三个控件,这样会出现两个问题:</p>
+        <h3 id="提出问题"><a href="#提出问题" class="headerlink" title="提出问题"></a>提出问题</h3><p>如图所示,是一个我们现在应用中经常使用的一个控件,一个带删除功能的EditText,可能在你自己的app中所有的EditText控件都带删除功能,如果我们笨笨的使用线性或者相对布局来排列这三个控件,这样会出现两个问题:</p>
 <ol>
 <li>代码过长,不易于查看,想想如果一个界面里面出现3个以上这种控件,xml布局中会出现很冗长的重复代码;</li>
 <li><p>同样不易于维护,当产品要对整个app的EditText做出UI的修改的时候,你会发现很痛苦的在一个一个xml布局的修改,因为一个app要保证风格的统一,所有的对应的控件都需要修改;</p>
 <p> 所以当我们发现一个app的很多界面有相同的控件时,我们就要留心将他们封装成一个自定义的控件,在使用的时候我们就复用这个控件就可以了.</p>
 </li>
 </ol>
+<a id="more"></a>
+<p>效果图:</p>
+<p><img src="http://7xtdu4.com1.z0.glb.clouddn.com/%E8%87%AA%E5%AE%9A%E4%B9%89%E5%B8%A6%E5%88%A0%E9%99%A4%E5%8A%9F%E8%83%BD%E7%9A%84EditText.gif" alt=""></p>
 <h3 id="代码实现"><a href="#代码实现" class="headerlink" title="代码实现"></a>代码实现</h3><p>自定义控件我们通常分为两种:自定义组合控件和自定义全新的控件,而我这个控件是用自定义组合控件来实现的:</p>
 <ol>
 <li><p>定义属性</p>
