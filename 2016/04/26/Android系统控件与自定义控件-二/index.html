@@ -64,7 +64,7 @@
 <link href="/css/main.css?v=5.0.1" rel="stylesheet" type="text/css" />
 
 
-  <meta name="keywords" content="Hexo, NexT" />
+  <meta name="keywords" content="android," />
 
 
 
@@ -80,16 +80,28 @@
 
 
 
-<meta name="description" content="如果不努力做点什么，一辈子得多无趣。">
+<meta name="description" content="前文提到android系统控件的机制,我们可以通过继承系统组件,方便的拓展功能,甚至可以直接自定义一个控件,实现Android系统中没有的功能.适当的使用自定义View,可以大大提高我们的开发效率和应用的体验效果,但是滥用自定义View则会带来适得其反的效果.
+
+View中比较重要的回调方法
+onFinishInflate():从布局文件加载后回调;
+onSizeChanged():当组件大小发">
 <meta property="og:type" content="article">
-<meta property="og:title" content="初心">
-<meta property="og:url" content="http://yoursite.com/2016/04/24/初心/index.html">
+<meta property="og:title" content="Android系统控件与自定义控件(二)">
+<meta property="og:url" content="http://yoursite.com/2016/04/26/Android系统控件与自定义控件-二/index.html">
 <meta property="og:site_name" content="麦芽糖的糖屋">
-<meta property="og:description" content="如果不努力做点什么，一辈子得多无趣。">
-<meta property="og:updated_time" content="2016-04-27T12:34:31.782Z">
+<meta property="og:description" content="前文提到android系统控件的机制,我们可以通过继承系统组件,方便的拓展功能,甚至可以直接自定义一个控件,实现Android系统中没有的功能.适当的使用自定义View,可以大大提高我们的开发效率和应用的体验效果,但是滥用自定义View则会带来适得其反的效果.
+
+View中比较重要的回调方法
+onFinishInflate():从布局文件加载后回调;
+onSizeChanged():当组件大小发">
+<meta property="og:updated_time" content="2016-04-26T15:04:23.372Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="初心">
-<meta name="twitter:description" content="如果不努力做点什么，一辈子得多无趣。">
+<meta name="twitter:title" content="Android系统控件与自定义控件(二)">
+<meta name="twitter:description" content="前文提到android系统控件的机制,我们可以通过继承系统组件,方便的拓展功能,甚至可以直接自定义一个控件,实现Android系统中没有的功能.适当的使用自定义View,可以大大提高我们的开发效率和应用的体验效果,但是滥用自定义View则会带来适得其反的效果.
+
+View中比较重要的回调方法
+onFinishInflate():从布局文件加载后回调;
+onSizeChanged():当组件大小发">
 
 
 
@@ -107,7 +119,7 @@
   };
 </script>
 
-  <title> 初心 | 麦芽糖的糖屋 </title>
+  <title> Android系统控件与自定义控件(二) | 麦芽糖的糖屋 </title>
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
@@ -227,7 +239,7 @@
             
             
               
-                初心
+                Android系统控件与自定义控件(二)
               
             
           </h1>
@@ -239,8 +251,8 @@
               <i class="fa fa-calendar-o"></i>
             </span>
             <span class="post-meta-item-text">发表于</span>
-            <time itemprop="dateCreated" datetime="2016-04-24T22:41:39+08:00" content="2016-04-24">
-              2016-04-24
+            <time itemprop="dateCreated" datetime="2016-04-26T20:33:30+08:00" content="2016-04-26">
+              2016-04-26
             </time>
           </span>
 
@@ -250,8 +262,8 @@
             
               <span class="post-comments-count">
                 &nbsp; | &nbsp;
-                <a href="/2016/04/24/初心/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/04/24/初心/" itemprop="commentsCount"></span>
+                <a href="/2016/04/26/Android系统控件与自定义控件-二/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/04/26/Android系统控件与自定义控件-二/" itemprop="commentsCount"></span>
                 </a>
               </span>
             
@@ -274,7 +286,22 @@
       
 
       
-        
+        <blockquote>
+<p>前文提到android系统控件的机制,我们可以通过继承系统组件,方便的拓展功能,甚至可以直接自定义一个控件,实现Android系统中没有的功能.<br>适当的使用自定义View,可以大大提高我们的开发效率和应用的体验效果,但是滥用自定义View则会带来适得其反的效果.</p>
+</blockquote>
+<h3 id="View中比较重要的回调方法"><a href="#View中比较重要的回调方法" class="headerlink" title="View中比较重要的回调方法"></a>View中比较重要的回调方法</h3><ul>
+<li>onFinishInflate():从布局文件加载后回调;</li>
+<li>onSizeChanged():当组件大小发生改变的时候回调;</li>
+<li>onMeasure():回调进行测量;</li>
+<li>onLayout():回调确认显示的位置;</li>
+<li>onTouchEvent():监听触摸事件;</li>
+</ul>
+<h3 id="对现有控件进行拓展"><a href="#对现有控件进行拓展" class="headerlink" title="对现有控件进行拓展"></a>对现有控件进行拓展</h3><p>通过继承现有的系统控件,对其进行拓展,增加新的功能,修改显示的效果.</p>
+<h3 id="自定义组合控件"><a href="#自定义组合控件" class="headerlink" title="自定义组合控件"></a>自定义组合控件</h3><blockquote>
+<p>当一个app中需要使用到大量的相同形式的UI界面的时候,通常可以使用这种控件.</p>
+</blockquote>
+<p>通过继承一个适当的ViewGroup,在ViewGroup中添加子View的形式组合成一个新的组合控件.通常我们会通过自定义属性的方式给这个组合控件更高的扩展性.</p>
+
       
     </div>
     
@@ -292,17 +319,27 @@
 
     <footer class="post-footer">
       
+        <div class="post-tags">
+          
+            <a href="/tags/android/" rel="tag">#android</a>
+          
+        </div>
+      
 
       
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
+              <a href="/2016/04/26/Android系统控件与自定义控件-一/" rel="next" title="Android系统控件与自定义控件(一)">
+                <i class="fa fa-chevron-left"></i> Android系统控件与自定义控件(一)
+              </a>
+            
           </div>
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/2016/04/25/Android的生命周期和启动模式/" rel="prev" title="Android的生命周期和启动模式">
-                Android的生命周期和启动模式 <i class="fa fa-chevron-right"></i>
+              <a href="/2016/04/26/自定义带删除功能的EditText/" rel="prev" title="自定义带删除功能的EditText">
+                自定义带删除功能的EditText <i class="fa fa-chevron-right"></i>
               </a>
             
           </div>
@@ -329,8 +366,8 @@
           
   <div class="comments" id="comments">
     
-      <div class="ds-thread" data-thread-key="2016/04/24/初心/"
-           data-title="初心" data-url="http://yoursite.com/2016/04/24/初心/">
+      <div class="ds-thread" data-thread-key="2016/04/26/Android系统控件与自定义控件-二/"
+           data-title="Android系统控件与自定义控件(二)" data-url="http://yoursite.com/2016/04/26/Android系统控件与自定义控件-二/">
       </div>
     
   </div>
@@ -414,7 +451,7 @@
               
             
             
-              <p class="post-toc-empty">此文章未包含目录</p>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#View中比较重要的回调方法"><span class="nav-number">1.</span> <span class="nav-text">View中比较重要的回调方法</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#对现有控件进行拓展"><span class="nav-number">2.</span> <span class="nav-text">对现有控件进行拓展</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#自定义组合控件"><span class="nav-number">3.</span> <span class="nav-text">自定义组合控件</span></a></li></ol></div>
             
           </div>
         </section>

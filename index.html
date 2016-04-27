@@ -229,6 +229,528 @@
             
               
                 
+                <a class="post-title-link" href="/2016/04/26/自定义带删除功能的EditText/" itemprop="url">
+                  自定义带删除功能的EditText
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2016-04-26T22:55:33+08:00" content="2016-04-26">
+              2016-04-26
+            </time>
+          </span>
+
+          
+
+          
+            
+              <span class="post-comments-count">
+                &nbsp; | &nbsp;
+                <a href="/2016/04/26/自定义带删除功能的EditText/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/04/26/自定义带删除功能的EditText/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+
+          
+          
+
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p>先放效果图:</p>
+<p><img src="http://7xtdu4.com1.z0.glb.clouddn.com/%E8%87%AA%E5%AE%9A%E4%B9%89%E5%B8%A6%E5%88%A0%E9%99%A4%E5%8A%9F%E8%83%BD%E7%9A%84EditText.gif" alt=""></p>
+<h3 id="提出问题"><a href="#提出问题" class="headerlink" title="提出问题"></a>提出问题</h3><p>如图所示,是一个我们现在应用中经常使用的一个控件,一个带删除功能的EditText,可能在你自己的app中所有的EditText控件都带删除功能,如果我们笨笨的使用线性或者相对布局来排列这三个控件,这样会出现两个问题:</p>
+<ol>
+<li>代码过长,不易于查看,想想如果一个界面里面出现3个以上这种控件,xml布局中会出现很冗长的重复代码;</li>
+<li><p>同样不易于维护,当产品要对整个app的EditText做出UI的修改的时候,你会发现很痛苦的在一个一个xml布局的修改,因为一个app要保证风格的统一,所有的对应的控件都需要修改;</p>
+<p> 所以当我们发现一个app的很多界面有相同的控件时,我们就要留心将他们封装成一个自定义的控件,在使用的时候我们就复用这个控件就可以了.</p>
+</li>
+</ol>
+<h3 id="代码实现"><a href="#代码实现" class="headerlink" title="代码实现"></a>代码实现</h3><p>自定义控件我们通常分为两种:自定义组合控件和自定义全新的控件,而我这个控件是用自定义组合控件来实现的:</p>
+<ol>
+<li><p>定义属性</p>
+<pre><code>&lt;declare-styleable name=&quot;CleanEditText&quot;&gt;
+    &lt;attr name=&quot;leftImg&quot; format=&quot;reference&quot; /&gt;
+    &lt;attr name=&quot;rightImg&quot; format=&quot;reference&quot; /&gt;
+    &lt;attr name=&quot;hint&quot; format=&quot;string|reference&quot; /&gt;
+    &lt;attr name=&quot;text&quot; format=&quot;string|reference&quot; /&gt;
+    &lt;attr name=&quot;textColor&quot; format=&quot;color|reference&quot; /&gt;
+    &lt;attr name=&quot;textHintColor&quot; format=&quot;color|reference&quot;/&gt;
+&lt;/declare-styleable&gt;
+</code></pre></li>
+<li><p>定义自定义控件的布局</p>
+</li>
+<li><p>定义自定义控件</p>
+<pre><code>public CleanEditText(Context context, AttributeSet attrs){
+
+    View view = LayoutInflater.from(context).inflate(R.layout.weight_clear_edittext, this, true);
+    leftImg = (ImageView) view.findViewById(R.id.iv_left);
+    rightImg = (ImageView) view.findViewById(R.id.iv_right);
+    et_text = (EditText) view.findViewById(R.id.et_text);
+    et_text.addTextChangedListener(textWatcher);
+    rightImg.setVisibility(View.INVISIBLE);
+
+    rightImg.setOnClickListener(new OnClickListener() {
+      @Override
+      public void onClick(View v) {
+          et_text.setText(&quot;&quot;);
+      }
+    });
+    TypedArray ta = context.obtainStyledAttributes(attrs, R.styleable.CleanEditText);
+
+    设置属性(将属性通过ta.getString(),getColor()等方法获取自定义的属性值)
+
+    ta.recycle();
+}
+</code></pre></li>
+<li><p>对edittext的监听(删除功能)</p>
+<pre><code>//输入框文本变化监听器
+private TextWatcher textWatcher = new TextWatcher() {
+    @Override
+    public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+    }
+
+    @Override
+    public void afterTextChanged(Editable s) {
+    }
+
+    @Override
+    public void onTextChanged(CharSequence s, int start, int before, int count) {
+        if (TextUtils.isEmpty(s)) {
+            rightImg.setVisibility(View.INVISIBLE);
+        } else {
+            rightImg.setVisibility(View.VISIBLE);
+        }
+    }
+};
+</code></pre></li>
+<li><p>对外提供各种修改的set,get方法(getEditText()方法将et暴露出去可以提供各种其他的客制化,如设置inputType属性等)</p>
+<pre><code>protected void setHint(String hint) {
+    et_text.setHint(hint);
+}
+
+protected void setText(String text) {
+    et_text.setText(text);
+}
+
+protected String getText() {
+    return et_text.getText().toString();
+}
+
+protected EditText getEditText() {
+    return et_text;
+}
+</code></pre></li>
+<li><p>定制化的行为,点击左边图片有特定的事件,所以我们在不同的界面中实现的功能是不一样的,这样我们就不能在其中直接添加具体的实现逻辑,通过接口回调的方式,将具体的实现交由调用者自己事件(没有在工程中实现)</p>
+<pre><code>//在控件中定义一个接口,创建方法
+public interface CleanEditTextClickListener{
+    //左边图片的点击事件
+    void leftClick();
+}
+
+//暴露方法,交由调用者调用来实现接口回调
+public void setOnClickerListener(CleanEditTextClickListener mListener){
+    this.mListener = mListener
+}
+
+//在控件中添加点击事件,但是不要去实现,而是调用接口中相应的方法
+leftImg.setOnClickListener(new OnClickListener(){
+    @Override
+    public void onClick(View v){
+        mListener.leftClick();
+    }
+});
+
+//调用者实现接口回调
+mCleanEditText.setOnClickerListener(
+    new CleanEditTextClickListener(){
+        @Override
+        public void leftClick(){
+            //定义事件
+        }
+    }
+);
+</code></pre></li>
+<li><p>交由调用者来使用,在xml布局中</p>
+<pre><code>&lt;com.jinjin.clearedittext.CleanEditText
+    xmlns:app=&quot;http://schemas.android.com/apk/res-auto&quot;
+    android:layout_width=&quot;match_parent&quot;
+    android:layout_height=&quot;wrap_content&quot;
+    app:hint=&quot;请输入用户名&quot;
+    app:leftImg=&quot;@drawable/icon_login_user&quot;
+    app:rightImg=&quot;@drawable/icon_delete&quot;
+    app:text=&quot;输入的text&quot;
+    app:textColor=&quot;#ff0000&quot;/&gt;
+</code></pre></li>
+</ol>
+<h3 id="写在最后"><a href="#写在最后" class="headerlink" title="写在最后"></a>写在最后</h3><p>这只是一个最简单的自定义组合控件,但是在复杂的组合控件都是由以上这些步骤实现的:</p>
+<pre><code>定义属性-&gt;组合控件-&gt;定义接口-&gt;调用者使用.
+</code></pre><p>链接:    <a href="https://github.com/jsntjinjin/odds-and-ends/tree/master/ClearEditText" target="_blank" rel="external">CleanEditText</a></p>
+
+          
+        
+      
+    </div>
+    
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
+                <a class="post-title-link" href="/2016/04/26/Android系统控件与自定义控件-二/" itemprop="url">
+                  Android系统控件与自定义控件(二)
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2016-04-26T20:33:30+08:00" content="2016-04-26">
+              2016-04-26
+            </time>
+          </span>
+
+          
+
+          
+            
+              <span class="post-comments-count">
+                &nbsp; | &nbsp;
+                <a href="/2016/04/26/Android系统控件与自定义控件-二/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/04/26/Android系统控件与自定义控件-二/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+
+          
+          
+
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <blockquote>
+<p>前文提到android系统控件的机制,我们可以通过继承系统组件,方便的拓展功能,甚至可以直接自定义一个控件,实现Android系统中没有的功能.<br>适当的使用自定义View,可以大大提高我们的开发效率和应用的体验效果,但是滥用自定义View则会带来适得其反的效果.</p>
+</blockquote>
+<h3 id="View中比较重要的回调方法"><a href="#View中比较重要的回调方法" class="headerlink" title="View中比较重要的回调方法"></a>View中比较重要的回调方法</h3><ul>
+<li>onFinishInflate():从布局文件加载后回调;</li>
+<li>onSizeChanged():当组件大小发生改变的时候回调;</li>
+<li>onMeasure():回调进行测量;</li>
+<li>onLayout():回调确认显示的位置;</li>
+<li>onTouchEvent():监听触摸事件;</li>
+</ul>
+<h3 id="对现有控件进行拓展"><a href="#对现有控件进行拓展" class="headerlink" title="对现有控件进行拓展"></a>对现有控件进行拓展</h3><p>通过继承现有的系统控件,对其进行拓展,增加新的功能,修改显示的效果.</p>
+<h3 id="自定义组合控件"><a href="#自定义组合控件" class="headerlink" title="自定义组合控件"></a>自定义组合控件</h3><blockquote>
+<p>当一个app中需要使用到大量的相同形式的UI界面的时候,通常可以使用这种控件.</p>
+</blockquote>
+<p>通过继承一个适当的ViewGroup,在ViewGroup中添加子View的形式组合成一个新的组合控件.通常我们会通过自定义属性的方式给这个组合控件更高的扩展性.</p>
+
+          
+        
+      
+    </div>
+    
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
+                <a class="post-title-link" href="/2016/04/26/Android系统控件与自定义控件-一/" itemprop="url">
+                  Android系统控件与自定义控件(一)
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2016-04-26T20:03:37+08:00" content="2016-04-26">
+              2016-04-26
+            </time>
+          </span>
+
+          
+
+          
+            
+              <span class="post-comments-count">
+                &nbsp; | &nbsp;
+                <a href="/2016/04/26/Android系统控件与自定义控件-一/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/04/26/Android系统控件与自定义控件-一/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+
+          
+          
+
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <blockquote>
+<p>控件是每个app必不可少的一部分,无论是Android的系统控件,还是我们自定义的控件;而这些控件,组成了我们app的精美的界面.</p>
+</blockquote>
+<h3 id="Android控件"><a href="#Android控件" class="headerlink" title="Android控件"></a>Android控件</h3><ol>
+<li>Andoird中的每个控件都是矩形.</li>
+<li><p>在Activity的onCreate()方法中我们都会使用setContentView()的方法来加载我们的布局文件,这样我们的布局内容才显示出来;首先我们来看看Android界面的架构图:<br><img src="http://7xtdu4.com1.z0.glb.clouddn.com/Android%E7%B3%BB%E7%BB%9F%E6%8E%A7%E4%BB%B6%E4%B8%8E%E8%87%AA%E5%AE%9A%E4%B9%89%E6%8E%A7%E4%BB%B6%E4%B8%80.png" alt=""></p>
+<p> 如上图所示,每个Activity中都包含一个PhoneWindow对象,PhoneWindow对象又将一个DecorView设置为应用窗口的根View;DecorView对象作为一个窗口界面的顶层视图,封装了窗口的通用方法;DecorView又将窗口分为了两部分,一个是TitleView,一个是ContentView;这个ContentView就是我们所熟悉的;它是一个名为content的FrameLayout,而我们的布局文件就是设置在这个FrameLayout中.</p>
+</li>
+</ol>
+<h3 id="View的绘制原理"><a href="#View的绘制原理" class="headerlink" title="View的绘制原理"></a>View的绘制原理</h3><blockquote>
+<p>Android在绘制View的时候,遵循我们日常生活中的规律:测量,绘制</p>
+</blockquote>
+<h4 id="测量"><a href="#测量" class="headerlink" title="测量"></a>测量</h4><ul>
+<li>在现实生活中,我们在绘制一个东西的时候,首先我们需要测量东西的大小,而在Android中我们在onMeasure()方法中执行;</li>
+<li>Android给我们提供了MeasureSpec来实现我们的测量;<ul>
+<li><code>EXACTLY</code>: 精确值. 当指定为具体数值或者match_parent;</li>
+<li><code>AT_MOST</code>: 最大值. 当指定为wrap_content;</li>
+</ul>
+</li>
+</ul>
+<pre><code>@Override
+protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
+    setMeasuredDimension(measureWidth(widthMeasureSpec), measureHeight(heightMeasureSpec));
+}
+
+private int measureWidth(int measureSpec) {
+    int result = 0;
+    int specMode = MeasureSpec.getMode(measureSpec);
+    int specSize = MeasureSpec.getSize(measureSpec);
+    if (specMode == MeasureSpec.EXACTLY) {
+        result = specSize;
+    } else {
+        result = 200; //当为wrap_parent时指定默认的宽
+        if (specMode == MeasureSpec.AT_MOST) {
+            result = Math.min(result, specSize);
+        }
+    }
+    return result;
+}
+
+private int measureHeight(int measureSpec) {
+    int result = 0;
+    int specMode = MeasureSpec.getMode(measureSpec);
+    int specSize = MeasureSpec.getSize(measureSpec);
+    if (specMode == MeasureSpec.EXACTLY) {
+        result = specSize;
+    } else {
+        result = 200; 
+        if (specMode == MeasureSpec.AT_MOST) {
+            result = Math.min(result, specSize);
+        }
+    }
+    return result;
+}
+</code></pre><h4 id="测量-用于ViewGroup"><a href="#测量-用于ViewGroup" class="headerlink" title="测量(用于ViewGroup)"></a>测量(用于ViewGroup)</h4><ul>
+<li>ViewGroup在测量时通过遍历所有的子view,调用子view的Measure方法获得每个子view的测量结果;</li>
+<li>之后遍历来调用子view的Layout方法,并指定其具体的位置,从而决定布局位置;</li>
+<li>注意:如果需要支持wrap_parent的话,同样需要重写onMeasure()方法;</li>
+</ul>
+<h4 id="绘制"><a href="#绘制" class="headerlink" title="绘制"></a>绘制</h4><ul>
+<li><p>当我们测量好了之后就可以进行绘制了,Android中提供了onDraw()方法和Canvas来进行绘制;</p>
+<pre><code>@Override
+protected void onDraw(Canvas canvas) {
+    //绘制外层矩形
+    canvas.drawRect(0, 0, getMeasuredWidth(), getMeasuredHeight(), mPaint1);
+    //绘制内层矩形
+    canvas.drawRect(0, 0, getMeasuredWidth() - 10, getMeasuredHeight() - 10, mPaint2);
+    //用来保存Canvas的状态。save之后，可以调用Canvas的平移、放缩、旋转、错切、裁剪等操作
+    canvas.save();
+    canvas.translate(10, 0);
+    //textview 绘制文字
+    super.onDraw(canvas);
+    //用来恢复Canvas之前保存的状态。防止save后对Canvas执行的操作对后续的绘制有影响
+    canvas.restore();
+}
+</code></pre></li>
+<li>而ViewGroup通常不需要绘制,因为没有要绘制的内容.它会调用dispatchDraw()来绘制子view.</li>
+</ul>
+
+          
+        
+      
+    </div>
+    
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
                 <a class="post-title-link" href="/2016/04/25/Android的生命周期和启动模式/" itemprop="url">
                   Android的生命周期和启动模式
                 </a>
@@ -321,9 +843,11 @@
 <li><p>singleInstance:单实例模式</p>
 <ul>
 <li>这种模式下的activity智能单独存在于一个任务栈中;</li>
-<li>AB:任务栈1 -&gt; 启动C -&gt; AB:任务栈1;C:任务栈2;<h4 id="给Activity指定启动模式"><a href="#给Activity指定启动模式" class="headerlink" title="给Activity指定启动模式"></a>给Activity指定启动模式</h4></li>
+<li>AB:任务栈1 -&gt; 启动C -&gt; AB:任务栈1;C:任务栈2;</li>
 </ul>
 </li>
+</ol>
+<h4 id="给Activity指定启动模式"><a href="#给Activity指定启动模式" class="headerlink" title="给Activity指定启动模式"></a>给Activity指定启动模式</h4><ol>
 <li><p>在AndroidMenifest.xml中指定:</p>
 <pre><code>&lt;activity
 android:name=&quot;.home.HomeActivity&quot;
@@ -336,7 +860,9 @@ intent.addFlags(intent.FLAG_ACTIVITY_NEW_TASK);
 startActivity(intent);
 </code></pre></li>
 <li><p>第二种的优先级大于第一种的优先级;同时存在时,以第二种为准;</p>
-<h4 id="Activity的Flags标记位"><a href="#Activity的Flags标记位" class="headerlink" title="Activity的Flags标记位"></a>Activity的Flags标记位</h4></li>
+</li>
+</ol>
+<h4 id="Activity的Flags标记位"><a href="#Activity的Flags标记位" class="headerlink" title="Activity的Flags标记位"></a>Activity的Flags标记位</h4><ol>
 <li><p><code>FLAG_ACTIVITY_NEW_TASK</code></p>
 <p> 指定<code>singleTask</code>启动模式,和<code>ActivityManifest.xml</code>相同;</p>
 </li>
@@ -473,119 +999,7 @@ startActivity(intent);
       
         
           
-            <blockquote>
-<p>haha</p>
-</blockquote>
-
-          
-        
-      
-    </div>
-    
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
-      
-
-  
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
             
-            
-              
-                
-                <a class="post-title-link" href="/2016/04/24/hello-world/" itemprop="url">
-                  Hello World
-                </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            <span class="post-meta-item-icon">
-              <i class="fa fa-calendar-o"></i>
-            </span>
-            <span class="post-meta-item-text">发表于</span>
-            <time itemprop="dateCreated" datetime="2016-04-24T21:03:21+08:00" content="2016-04-24">
-              2016-04-24
-            </time>
-          </span>
-
-          
-
-          
-            
-              <span class="post-comments-count">
-                &nbsp; | &nbsp;
-                <a href="/2016/04/24/hello-world/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/04/24/hello-world/" itemprop="commentsCount"></span>
-                </a>
-              </span>
-            
-          
-
-          
-
-          
-          
-
-          
-        </div>
-      </header>
-    
-
-
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <p>Welcome to <a href="https://hexo.io/" target="_blank" rel="external">Hexo</a>! This is your very first post. Check <a href="https://hexo.io/docs/" target="_blank" rel="external">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="https://hexo.io/docs/troubleshooting.html" target="_blank" rel="external">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues" target="_blank" rel="external">GitHub</a>.</p>
-<h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo new <span class="string">"My New Post"</span></span><br></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/writing.html" target="_blank" rel="external">Writing</a></p>
-<h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo server</span><br></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/server.html" target="_blank" rel="external">Server</a></p>
-<h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo generate</span><br></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/generating.html" target="_blank" rel="external">Generating</a></p>
-<h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo deploy</span><br></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/deployment.html" target="_blank" rel="external">Deployment</a></p>
-
           
         
       
@@ -654,7 +1068,7 @@ startActivity(intent);
         <nav class="site-state motion-element">
           <div class="site-state-item site-state-posts">
             <a href="/archives">
-              <span class="site-state-item-count">3</span>
+              <span class="site-state-item-count">5</span>
               <span class="site-state-item-name">日志</span>
             </a>
           </div>

@@ -98,7 +98,7 @@ activity第一次启动:onCreate-&amp;gt;onStart-&amp;gt;onResume
 back键onPause-&amp;gt;onStop-&amp;g">
 <meta property="og:image" content="http://7xtdu4.com1.z0.glb.clouddn.com/Android%E7%9A%84%E7%94%9F%E5%91%BD%E5%91%A8%E6%9C%9F%E5%92%8C%E5%90%AF%E5%8A%A8%E6%A8%A1%E5%BC%8F1.png">
 <meta property="og:image" content="http://7xtdu4.com1.z0.glb.clouddn.com/Android%E7%9A%84%E7%94%9F%E5%91%BD%E5%91%A8%E6%9C%9F%E5%92%8C%E5%90%AF%E5%8A%A8%E6%A8%A1%E5%BC%8F2.jpg">
-<meta property="og:updated_time" content="2016-04-25T15:52:09.152Z">
+<meta property="og:updated_time" content="2016-04-26T11:46:51.552Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Android的生命周期和启动模式">
 <meta name="twitter:description" content="Android正常情况
@@ -333,9 +333,11 @@ back键onPause-&amp;gt;onStop-&amp;g">
 <li><p>singleInstance:单实例模式</p>
 <ul>
 <li>这种模式下的activity智能单独存在于一个任务栈中;</li>
-<li>AB:任务栈1 -&gt; 启动C -&gt; AB:任务栈1;C:任务栈2;<h4 id="给Activity指定启动模式"><a href="#给Activity指定启动模式" class="headerlink" title="给Activity指定启动模式"></a>给Activity指定启动模式</h4></li>
+<li>AB:任务栈1 -&gt; 启动C -&gt; AB:任务栈1;C:任务栈2;</li>
 </ul>
 </li>
+</ol>
+<h4 id="给Activity指定启动模式"><a href="#给Activity指定启动模式" class="headerlink" title="给Activity指定启动模式"></a>给Activity指定启动模式</h4><ol>
 <li><p>在AndroidMenifest.xml中指定:</p>
 <pre><code>&lt;activity
 android:name=&quot;.home.HomeActivity&quot;
@@ -348,7 +350,9 @@ intent.addFlags(intent.FLAG_ACTIVITY_NEW_TASK);
 startActivity(intent);
 </code></pre></li>
 <li><p>第二种的优先级大于第一种的优先级;同时存在时,以第二种为准;</p>
-<h4 id="Activity的Flags标记位"><a href="#Activity的Flags标记位" class="headerlink" title="Activity的Flags标记位"></a>Activity的Flags标记位</h4></li>
+</li>
+</ol>
+<h4 id="Activity的Flags标记位"><a href="#Activity的Flags标记位" class="headerlink" title="Activity的Flags标记位"></a>Activity的Flags标记位</h4><ol>
 <li><p><code>FLAG_ACTIVITY_NEW_TASK</code></p>
 <p> 指定<code>singleTask</code>启动模式,和<code>ActivityManifest.xml</code>相同;</p>
 </li>
@@ -422,6 +426,10 @@ startActivity(intent);
 
           <div class="post-nav-prev post-nav-item">
             
+              <a href="/2016/04/26/Android系统控件与自定义控件-一/" rel="prev" title="Android系统控件与自定义控件(一)">
+                Android系统控件与自定义控件(一) <i class="fa fa-chevron-right"></i>
+              </a>
+            
           </div>
         </div>
       
@@ -492,7 +500,7 @@ startActivity(intent);
         <nav class="site-state motion-element">
           <div class="site-state-item site-state-posts">
             <a href="/archives">
-              <span class="site-state-item-count">3</span>
+              <span class="site-state-item-count">5</span>
               <span class="site-state-item-name">日志</span>
             </a>
           </div>
