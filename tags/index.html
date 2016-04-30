@@ -64,7 +64,7 @@
 <link href="/css/main.css?v=5.0.1" rel="stylesheet" type="text/css" />
 
 
-  <meta name="keywords" content="android," />
+  <meta name="keywords" content="Hexo, NexT" />
 
 
 
@@ -80,16 +80,16 @@
 
 
 
-<meta name="description" content="前文提到android系统控件的机制,我们可以通过继承系统组件,方便的拓展功能,甚至可以直接自定义一个控件,实现Android系统中没有的功能.适当的使用自定义View,可以大大提高我们的开发效率和应用的体验效果,但是滥用自定义View则会带来适得其反的效果.">
-<meta property="og:type" content="article">
-<meta property="og:title" content="Android系统控件与自定义控件(二)">
-<meta property="og:url" content="http://yoursite.com/2016/04/26/Android系统控件与自定义控件-二/index.html">
+<meta name="description" content="如果不努力做点什么，一辈子得多无趣。">
+<meta property="og:type" content="website">
+<meta property="og:title" content="tags">
+<meta property="og:url" content="http://yoursite.com/tags/index.html">
 <meta property="og:site_name" content="麦芽糖的糖屋">
-<meta property="og:description" content="前文提到android系统控件的机制,我们可以通过继承系统组件,方便的拓展功能,甚至可以直接自定义一个控件,实现Android系统中没有的功能.适当的使用自定义View,可以大大提高我们的开发效率和应用的体验效果,但是滥用自定义View则会带来适得其反的效果.">
-<meta property="og:updated_time" content="2016-04-27T12:54:05.304Z">
+<meta property="og:description" content="如果不努力做点什么，一辈子得多无趣。">
+<meta property="og:updated_time" content="2016-04-30T15:53:29.419Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Android系统控件与自定义控件(二)">
-<meta name="twitter:description" content="前文提到android系统控件的机制,我们可以通过继承系统组件,方便的拓展功能,甚至可以直接自定义一个控件,实现Android系统中没有的功能.适当的使用自定义View,可以大大提高我们的开发效率和应用的体验效果,但是滥用自定义View则会带来适得其反的效果.">
+<meta name="twitter:title" content="tags">
+<meta name="twitter:description" content="如果不努力做点什么，一辈子得多无趣。">
 
 
 
@@ -107,7 +107,13 @@
   };
 </script>
 
-  <title> Android系统控件与自定义控件(二) | 麦芽糖的糖屋 </title>
+  <title>
+  
+
+  
+    标签 | 麦芽糖的糖屋
+  
+</title>
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
@@ -138,7 +144,7 @@
     
   
 
-  <div class="container one-collumn sidebar-position-left page-post-detail ">
+  <div class="container one-collumn sidebar-position-left  ">
     <div class="headband"></div>
 
     <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
@@ -228,174 +234,24 @@
 
   <div id="posts" class="posts-expand">
     
-
-  
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-
     
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-            
-            
-              
-                Android系统控件与自定义控件(二)
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            <span class="post-meta-item-icon">
-              <i class="fa fa-calendar-o"></i>
-            </span>
-            <span class="post-meta-item-text">发表于</span>
-            <time itemprop="dateCreated" datetime="2016-04-26T20:33:30+08:00" content="2016-04-26">
-              2016-04-26
-            </time>
-          </span>
-
-          
-
-          
-            
-              <span class="post-comments-count">
-                &nbsp; | &nbsp;
-                <a href="/2016/04/26/Android系统控件与自定义控件-二/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/04/26/Android系统控件与自定义控件-二/" itemprop="commentsCount"></span>
-                </a>
-              </span>
-            
-          
-
-          
-
-          
-          
-             <span id="/2016/04/26/Android系统控件与自定义控件-二/" class="leancloud_visitors" data-flag-title="Android系统控件与自定义控件(二)">
-               &nbsp; | &nbsp;
-               <span class="post-meta-item-icon">
-                 <i class="fa fa-eye"></i>
-               </span>
-               <span class="post-meta-item-text">阅读次数 </span>
-               <span class="leancloud-visitors-count"></span>
-              </span>
-          
-
-          
+      <div class="tag-cloud">
+        <div class="tag-cloud-title">
+            目前共计 1 个标签
         </div>
-      </header>
-    
-
-
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        <blockquote>
-<p>前文提到android系统控件的机制,我们可以通过继承系统组件,方便的拓展功能,甚至可以直接自定义一个控件,实现Android系统中没有的功能.<br>适当的使用自定义View,可以大大提高我们的开发效率和应用的体验效果,但是滥用自定义View则会带来适得其反的效果.</p>
-</blockquote>
-<a id="more"></a>
-<h3 id="View中比较重要的回调方法"><a href="#View中比较重要的回调方法" class="headerlink" title="View中比较重要的回调方法"></a>View中比较重要的回调方法</h3><ul>
-<li>onFinishInflate():从布局文件加载后回调;</li>
-<li>onSizeChanged():当组件大小发生改变的时候回调;</li>
-<li>onMeasure():回调进行测量;</li>
-<li>onLayout():回调确认显示的位置;</li>
-<li>onTouchEvent():监听触摸事件;</li>
-</ul>
-<h3 id="对现有控件进行拓展"><a href="#对现有控件进行拓展" class="headerlink" title="对现有控件进行拓展"></a>对现有控件进行拓展</h3><p>通过继承现有的系统控件,对其进行拓展,增加新的功能,修改显示的效果.</p>
-<h3 id="自定义组合控件"><a href="#自定义组合控件" class="headerlink" title="自定义组合控件"></a>自定义组合控件</h3><blockquote>
-<p>当一个app中需要使用到大量的相同形式的UI界面的时候,通常可以使用这种控件.</p>
-</blockquote>
-<p>通过继承一个适当的ViewGroup,在ViewGroup中添加子View的形式组合成一个新的组合控件.通常我们会通过自定义属性的方式给这个组合控件更高的扩展性.</p>
-<p><strong>一个小例子</strong> : <a href="http://jsntjinjin.github.io/2016/04/26/%E8%87%AA%E5%AE%9A%E4%B9%89%E5%B8%A6%E5%88%A0%E9%99%A4%E5%8A%9F%E8%83%BD%E7%9A%84EditText/" target="_blank" rel="external">自定义带删除功能的EditText</a></p>
-<h3 id="覆写View创建全新的控件"><a href="#覆写View创建全新的控件" class="headerlink" title="覆写View创建全新的控件"></a>覆写View创建全新的控件</h3><blockquote>
-<p>当系统的控件无法满足我们的生产需求的时候,我们可以通过这种方式创建一个新的控件来实现我们所需要的需求.</p>
-</blockquote>
-<p>通过继承View,并重写onMeasure(),onDraw()等view的方法来实现我们所需要的界面逻辑,重写onTouchEvent()等方法来实现交互方面的逻辑.</p>
-<p><strong>一个小例子</strong> : 待续</p>
-
-      
-    </div>
-    
-    <div>
-      
-        
-      
-    </div>
-
-    <div>
-      
-        
-      
-    </div>
-
-    <footer class="post-footer">
-      
-        <div class="post-tags">
-          
-            <a href="/tags/android/" rel="tag">#android</a>
-          
+        <div class="tag-cloud-tags">
+          <a href="/tags/android/" style="font-size: 12px; color: #ccc">android</a>
         </div>
-      
-
-      
-        <div class="post-nav">
-          <div class="post-nav-next post-nav-item">
-            
-              <a href="/2016/04/26/Android系统控件与自定义控件-一/" rel="next" title="Android系统控件与自定义控件(一)">
-                <i class="fa fa-chevron-left"></i> Android系统控件与自定义控件(一)
-              </a>
-            
-          </div>
-
-          <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2016/04/26/自定义带删除功能的EditText/" rel="prev" title="自定义带删除功能的EditText">
-                自定义带删除功能的EditText <i class="fa fa-chevron-right"></i>
-              </a>
-            
-          </div>
-        </div>
-      
-
-      
-      
-    </footer>
-  </article>
-
-
-
-    <div class="post-spread">
-      
-    </div>
-  </div>
-
-
-          </div>
-          
-
-
-          
-  <div class="comments" id="comments">
-    
-      <div class="ds-thread" data-thread-key="2016/04/26/Android系统控件与自定义控件-二/"
-           data-title="Android系统控件与自定义控件(二)" data-url="http://yoursite.com/2016/04/26/Android系统控件与自定义控件-二/">
       </div>
     
   </div>
 
+
+          </div>
+          
+
+
+          
 
         </div>
         
@@ -415,17 +271,8 @@
       
 
       
-        <ul class="sidebar-nav motion-element">
-          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
-            文章目录
-          </li>
-          <li class="sidebar-nav-overview" data-target="site-overview">
-            站点概览
-          </li>
-        </ul>
-      
 
-      <section class="site-overview sidebar-panel ">
+      <section class="site-overview sidebar-panel  sidebar-panel-active ">
         <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
           <img class="site-author-image" itemprop="image"
                src="http://7xtdu4.com1.z0.glb.clouddn.com/head.jpg"
@@ -468,17 +315,6 @@
 
       </section>
 
-      
-        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
-          <div class="post-toc">
-            
-              
-            
-            
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#View中比较重要的回调方法"><span class="nav-number">1.</span> <span class="nav-text">View中比较重要的回调方法</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#对现有控件进行拓展"><span class="nav-number">2.</span> <span class="nav-text">对现有控件进行拓展</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#自定义组合控件"><span class="nav-number">3.</span> <span class="nav-text">自定义组合控件</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#覆写View创建全新的控件"><span class="nav-number">4.</span> <span class="nav-text">覆写View创建全新的控件</span></a></li></ol></div>
-            
-          </div>
-        </section>
       
 
     </div>
@@ -575,10 +411,6 @@
   
 
   
-  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.0.1"></script>
-<script type="text/javascript" src="/js/src/post-details.js?v=5.0.1"></script>
-
-
 
   
 
