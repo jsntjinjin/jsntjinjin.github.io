@@ -80,27 +80,16 @@
 
 
 
-<meta name="description" content="提出问题如图所示,是一个我们现在应用中经常使用的一个控件,一个带删除功能的EditText,可能在你自己的app中所有的EditText控件都带删除功能,如果我们笨笨的使用线性或者相对布局来排列这三个控件,这样会出现两个问题:
-
-代码过长,不易于查看,想想如果一个界面里面出现3个以上这种控件,xml布局中会出现很冗长的重复代码;
-同样不易于维护,当产品要对整个app的EditText做出UI的修改">
+<meta name="description" content="Android作为一个客户端直接展示给用户使用,而本篇文章主要学习了Android的屏幕适配,Canvas技巧,XML绘图相关知识,色彩特效处理,图形特效处理,画笔特效处理,SurfaceView等.">
 <meta property="og:type" content="article">
-<meta property="og:title" content="自定义带删除功能的EditText">
-<meta property="og:url" content="http://yoursite.com/2016/04/26/自定义带删除功能的EditText/index.html">
+<meta property="og:title" content="Android绘图机制(五)--SurfaceView">
+<meta property="og:url" content="http://yoursite.com/2016/07/02/Android绘图机制(五)/index.html">
 <meta property="og:site_name" content="麦芽糖的糖屋">
-<meta property="og:description" content="提出问题如图所示,是一个我们现在应用中经常使用的一个控件,一个带删除功能的EditText,可能在你自己的app中所有的EditText控件都带删除功能,如果我们笨笨的使用线性或者相对布局来排列这三个控件,这样会出现两个问题:
-
-代码过长,不易于查看,想想如果一个界面里面出现3个以上这种控件,xml布局中会出现很冗长的重复代码;
-同样不易于维护,当产品要对整个app的EditText做出UI的修改">
-<meta property="og:image" content="http://7xtdu4.com1.z0.glb.clouddn.com/%E8%87%AA%E5%AE%9A%E4%B9%89%E5%B8%A6%E5%88%A0%E9%99%A4%E5%8A%9F%E8%83%BD%E7%9A%84EditText.gif">
-<meta property="og:updated_time" content="2016-04-30T13:52:43.545Z">
+<meta property="og:description" content="Android作为一个客户端直接展示给用户使用,而本篇文章主要学习了Android的屏幕适配,Canvas技巧,XML绘图相关知识,色彩特效处理,图形特效处理,画笔特效处理,SurfaceView等.">
+<meta property="og:updated_time" content="2016-09-14T09:05:34.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="自定义带删除功能的EditText">
-<meta name="twitter:description" content="提出问题如图所示,是一个我们现在应用中经常使用的一个控件,一个带删除功能的EditText,可能在你自己的app中所有的EditText控件都带删除功能,如果我们笨笨的使用线性或者相对布局来排列这三个控件,这样会出现两个问题:
-
-代码过长,不易于查看,想想如果一个界面里面出现3个以上这种控件,xml布局中会出现很冗长的重复代码;
-同样不易于维护,当产品要对整个app的EditText做出UI的修改">
-<meta name="twitter:image" content="http://7xtdu4.com1.z0.glb.clouddn.com/%E8%87%AA%E5%AE%9A%E4%B9%89%E5%B8%A6%E5%88%A0%E9%99%A4%E5%8A%9F%E8%83%BD%E7%9A%84EditText.gif">
+<meta name="twitter:title" content="Android绘图机制(五)--SurfaceView">
+<meta name="twitter:description" content="Android作为一个客户端直接展示给用户使用,而本篇文章主要学习了Android的屏幕适配,Canvas技巧,XML绘图相关知识,色彩特效处理,图形特效处理,画笔特效处理,SurfaceView等.">
 
 
 
@@ -118,7 +107,7 @@
   };
 </script>
 
-  <title> 自定义带删除功能的EditText | 麦芽糖的糖屋 </title>
+  <title> Android绘图机制(五)--SurfaceView | 麦芽糖的糖屋 </title>
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
@@ -268,7 +257,7 @@
             
             
               
-                自定义带删除功能的EditText
+                Android绘图机制(五)--SurfaceView
               
             
           </h1>
@@ -280,8 +269,8 @@
               <i class="fa fa-calendar-o"></i>
             </span>
             <span class="post-meta-item-text">发表于</span>
-            <time itemprop="dateCreated" datetime="2016-04-26T22:55:33+08:00" content="2016-04-26">
-              2016-04-26
+            <time itemprop="dateCreated" datetime="2016-07-02T19:54:34+08:00" content="2016-07-02">
+              2016-07-02
             </time>
           </span>
 
@@ -291,8 +280,8 @@
             
               <span class="post-comments-count">
                 &nbsp; | &nbsp;
-                <a href="/2016/04/26/自定义带删除功能的EditText/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/04/26/自定义带删除功能的EditText/" itemprop="commentsCount"></span>
+                <a href="/2016/07/02/Android绘图机制(五)/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/07/02/Android绘图机制(五)/" itemprop="commentsCount"></span>
                 </a>
               </span>
             
@@ -302,7 +291,7 @@
 
           
           
-             <span id="/2016/04/26/自定义带删除功能的EditText/" class="leancloud_visitors" data-flag-title="自定义带删除功能的EditText">
+             <span id="/2016/07/02/Android绘图机制(五)/" class="leancloud_visitors" data-flag-title="Android绘图机制(五)--SurfaceView">
                &nbsp; | &nbsp;
                <span class="post-meta-item-icon">
                  <i class="fa fa-eye"></i>
@@ -324,136 +313,23 @@
       
 
       
-        <h3 id="提出问题"><a href="#提出问题" class="headerlink" title="提出问题"></a>提出问题</h3><p>如图所示,是一个我们现在应用中经常使用的一个控件,一个带删除功能的EditText,可能在你自己的app中所有的EditText控件都带删除功能,如果我们笨笨的使用线性或者相对布局来排列这三个控件,这样会出现两个问题:</p>
-<ol>
-<li>代码过长,不易于查看,想想如果一个界面里面出现3个以上这种控件,xml布局中会出现很冗长的重复代码;</li>
-<li><p>同样不易于维护,当产品要对整个app的EditText做出UI的修改的时候,你会发现很痛苦的在一个一个xml布局的修改,因为一个app要保证风格的统一,所有的对应的控件都需要修改;</p>
-<p> 所以当我们发现一个app的很多界面有相同的控件时,我们就要留心将他们封装成一个自定义的控件,在使用的时候我们就复用这个控件就可以了.</p>
-</li>
-</ol>
+        <p>Android作为一个客户端直接展示给用户使用,而本篇文章主要学习了Android的屏幕适配,Canvas技巧,XML绘图相关知识,色彩特效处理,图形特效处理,画笔特效处理,SurfaceView等.</p>
 <a id="more"></a>
-<p>效果图:</p>
-<p><img src="http://7xtdu4.com1.z0.glb.clouddn.com/%E8%87%AA%E5%AE%9A%E4%B9%89%E5%B8%A6%E5%88%A0%E9%99%A4%E5%8A%9F%E8%83%BD%E7%9A%84EditText.gif" alt=""></p>
-<h3 id="代码实现"><a href="#代码实现" class="headerlink" title="代码实现"></a>代码实现</h3><p>自定义控件我们通常分为两种:自定义组合控件和自定义全新的控件,而我这个控件是用自定义组合控件来实现的:</p>
 <ol>
-<li><p>定义属性</p>
-<pre><code>&lt;declare-styleable name=&quot;CleanEditText&quot;&gt;
-    &lt;attr name=&quot;leftImg&quot; format=&quot;reference&quot; /&gt;
-    &lt;attr name=&quot;rightImg&quot; format=&quot;reference&quot; /&gt;
-    &lt;attr name=&quot;hint&quot; format=&quot;string|reference&quot; /&gt;
-    &lt;attr name=&quot;text&quot; format=&quot;string|reference&quot; /&gt;
-    &lt;attr name=&quot;textColor&quot; format=&quot;color|reference&quot; /&gt;
-    &lt;attr name=&quot;textHintColor&quot; format=&quot;color|reference&quot;/&gt;
-&lt;/declare-styleable&gt;
-</code></pre></li>
-<li><p>定义自定义控件的布局</p>
+<li><p>SurfaceView和View的区别:<br> View 通过刷新来重绘视图,Android系统通过发送VSYNC信号来进行屏幕的重绘,刷新的间隔为16ms,当小于16msView完成了所需要执行的操作,那么不会有卡顿的现象;当需要执行的逻辑太多的时候,会有卡顿啊的现象.</p>
+<ul>
+<li>View用于主动更新的情况,而SurfaceView则适用于被动刷新的情况,比如频繁的刷新</li>
+<li>VIew在主线程中刷新,而SurfaceView通常会新开一个子线程刷新</li>
+<li><p>View绘图的时候没有实现双缓冲机制,而SurfaceView在底层实现了双缓冲机制</p>
+<blockquote>
+<p>如果一个自定义的VIew需要频繁的刷新或者刷新的时候数据处理的量很大,就可以尝试使用SurfaceView来代替View</p>
+</blockquote>
 </li>
-<li><p>定义自定义控件</p>
-<pre><code>public CleanEditText(Context context, AttributeSet attrs){
-
-    View view = LayoutInflater.from(context).inflate(R.layout.weight_clear_edittext, this, true);
-    leftImg = (ImageView) view.findViewById(R.id.iv_left);
-    rightImg = (ImageView) view.findViewById(R.id.iv_right);
-    et_text = (EditText) view.findViewById(R.id.et_text);
-    et_text.addTextChangedListener(textWatcher);
-    rightImg.setVisibility(View.INVISIBLE);
-
-    rightImg.setOnClickListener(new OnClickListener() {
-      @Override
-      public void onClick(View v) {
-          et_text.setText(&quot;&quot;);
-      }
-    });
-    TypedArray ta = context.obtainStyledAttributes(attrs, R.styleable.CleanEditText);
-
-    设置属性(将属性通过ta.getString(),getColor()等方法获取自定义的属性值)
-
-    ta.recycle();
-}
-</code></pre></li>
-<li><p>对edittext的监听(删除功能)</p>
-<pre><code>//输入框文本变化监听器
-private TextWatcher textWatcher = new TextWatcher() {
-    @Override
-    public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-    }
-
-    @Override
-    public void afterTextChanged(Editable s) {
-    }
-
-    @Override
-    public void onTextChanged(CharSequence s, int start, int before, int count) {
-        if (TextUtils.isEmpty(s)) {
-            rightImg.setVisibility(View.INVISIBLE);
-        } else {
-            rightImg.setVisibility(View.VISIBLE);
-        }
-    }
-};
-</code></pre></li>
-<li><p>对外提供各种修改的set,get方法(getEditText()方法将et暴露出去可以提供各种其他的客制化,如设置inputType属性等)</p>
-<pre><code>protected void setHint(String hint) {
-    et_text.setHint(hint);
-}
-
-protected void setText(String text) {
-    et_text.setText(text);
-}
-
-protected String getText() {
-    return et_text.getText().toString();
-}
-
-protected EditText getEditText() {
-    return et_text;
-}
-</code></pre></li>
-<li><p>定制化的行为,点击左边图片有特定的事件,所以我们在不同的界面中实现的功能是不一样的,这样我们就不能在其中直接添加具体的实现逻辑,通过接口回调的方式,将具体的实现交由调用者自己事件(没有在工程中实现)</p>
-<pre><code>//在控件中定义一个接口,创建方法
-public interface CleanEditTextClickListener{
-    //左边图片的点击事件
-    void leftClick();
-}
-
-//暴露方法,交由调用者调用来实现接口回调
-public void setOnClickerListener(CleanEditTextClickListener mListener){
-    this.mListener = mListener
-}
-
-//在控件中添加点击事件,但是不要去实现,而是调用接口中相应的方法
-leftImg.setOnClickListener(new OnClickListener(){
-    @Override
-    public void onClick(View v){
-        mListener.leftClick();
-    }
-});
-
-//调用者实现接口回调
-mCleanEditText.setOnClickerListener(
-    new CleanEditTextClickListener(){
-        @Override
-        public void leftClick(){
-            //定义事件
-        }
-    }
-);
-</code></pre></li>
-<li><p>交由调用者来使用,在xml布局中</p>
-<pre><code>&lt;com.jinjin.clearedittext.CleanEditText
-    xmlns:app=&quot;http://schemas.android.com/apk/res-auto&quot;
-    android:layout_width=&quot;match_parent&quot;
-    android:layout_height=&quot;wrap_content&quot;
-    app:hint=&quot;请输入用户名&quot;
-    app:leftImg=&quot;@drawable/icon_login_user&quot;
-    app:rightImg=&quot;@drawable/icon_delete&quot;
-    app:text=&quot;输入的text&quot;
-    app:textColor=&quot;#ff0000&quot;/&gt;
-</code></pre></li>
+</ul>
+</li>
+<li><p>SurfaceView的使用模板程序</p>
+ <figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div><div class="line">61</div><div class="line">62</div><div class="line">63</div><div class="line">64</div><div class="line">65</div><div class="line">66</div><div class="line">67</div><div class="line">68</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">MySurfaceView</span> <span class="keyword">extends</span> <span class="title">SurfaceView</span> <span class="keyword">implements</span> <span class="title">SurfaceHolder</span>.<span class="title">Callback</span>, <span class="title">Runnable</span> </span>&#123;</div><div class="line"></div><div class="line">    <span class="comment">// surfaceHolder</span></div><div class="line">    <span class="keyword">private</span> SurfaceHolder holder;</div><div class="line">    <span class="comment">// 绘制的Canvas</span></div><div class="line">    <span class="keyword">private</span> Canvas canvas;</div><div class="line">    <span class="comment">// 子线程的标志位</span></div><div class="line">    <span class="keyword">private</span> <span class="keyword">boolean</span> isDrawing;</div><div class="line"></div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="title">MySurfaceView</span><span class="params">(Context context)</span> </span>&#123;</div><div class="line">        <span class="keyword">super</span>(context);</div><div class="line">        initView();</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="title">MySurfaceView</span><span class="params">(Context context, AttributeSet attrs)</span> </span>&#123;</div><div class="line">        <span class="keyword">super</span>(context, attrs);</div><div class="line">        initView();</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="title">MySurfaceView</span><span class="params">(Context context, AttributeSet attrs, <span class="keyword">int</span> defStyleAttr)</span> </span>&#123;</div><div class="line">        <span class="keyword">super</span>(context, attrs, defStyleAttr);</div><div class="line">        initView();</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="function"><span class="keyword">private</span> <span class="keyword">void</span> <span class="title">initView</span><span class="params">()</span> </span>&#123;</div><div class="line">        holder = getHolder();</div><div class="line">        holder.addCallback(<span class="keyword">this</span>);</div><div class="line">        setFocusable(<span class="keyword">true</span>);</div><div class="line">        setFocusableInTouchMode(<span class="keyword">true</span>);</div><div class="line">        <span class="keyword">this</span>.setKeepScreenOn(<span class="keyword">true</span>);</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="meta">@Override</span></div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">surfaceCreated</span><span class="params">(SurfaceHolder holder)</span> </span>&#123;</div><div class="line">        isDrawing = <span class="keyword">true</span>;</div><div class="line">        <span class="keyword">new</span> Thread(<span class="keyword">this</span>).start();</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="meta">@Override</span></div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">surfaceChanged</span><span class="params">(SurfaceHolder holder, <span class="keyword">int</span> format, <span class="keyword">int</span> width, <span class="keyword">int</span> height)</span> </span>&#123;</div><div class="line"></div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="meta">@Override</span></div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">surfaceDestroyed</span><span class="params">(SurfaceHolder holder)</span> </span>&#123;</div><div class="line">        isDrawing = <span class="keyword">false</span>;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="meta">@Override</span></div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">run</span><span class="params">()</span> </span>&#123;</div><div class="line">        <span class="keyword">while</span> (isDrawing) &#123;</div><div class="line">            draw();</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="function"><span class="keyword">private</span> <span class="keyword">void</span> <span class="title">draw</span><span class="params">()</span> </span>&#123;</div><div class="line">        <span class="keyword">try</span> &#123;</div><div class="line">            canvas = holder.lockCanvas();</div><div class="line">            <span class="comment">//draw something</span></div><div class="line">        &#125; <span class="keyword">catch</span> (Exception e) &#123;</div><div class="line"></div><div class="line">        &#125; <span class="keyword">finally</span> &#123;</div><div class="line">            <span class="keyword">if</span> (canvas != <span class="keyword">null</span>) &#123;</div><div class="line">                holder.unlockCanvasAndPost(canvas);</div><div class="line">            &#125;</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure></li>
 </ol>
-<h3 id="写在最后"><a href="#写在最后" class="headerlink" title="写在最后"></a>写在最后</h3><p>这只是一个最简单的自定义组合控件,但是在复杂的组合控件都是由以上这些步骤实现的:</p>
-<pre><code>定义属性-&gt;组合控件-&gt;定义接口-&gt;调用者使用.
-</code></pre><p>链接:    <a href="https://github.com/jsntjinjin/CleanEditText" target="_blank" rel="external">CleanEditText</a></p>
 
       
     </div>
@@ -483,16 +359,16 @@ mCleanEditText.setOnClickerListener(
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2016/04/26/Android系统控件与自定义控件-二/" rel="next" title="Android系统控件与自定义控件(二)">
-                <i class="fa fa-chevron-left"></i> Android系统控件与自定义控件(二)
+              <a href="/2016/06/25/Android绘图机制(四)/" rel="next" title="Android绘图机制(四)--画笔特效处理">
+                <i class="fa fa-chevron-left"></i> Android绘图机制(四)--画笔特效处理
               </a>
             
           </div>
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/2016/04/30/Android-点击头像拍照或者从图库中选择/" rel="prev" title="Android 点击头像拍照或者从图库中选择">
-                Android 点击头像拍照或者从图库中选择 <i class="fa fa-chevron-right"></i>
+              <a href="/2016/07/13/Android动画机制/" rel="prev" title="Android动画机制">
+                Android动画机制 <i class="fa fa-chevron-right"></i>
               </a>
             
           </div>
@@ -519,8 +395,8 @@ mCleanEditText.setOnClickerListener(
           
   <div class="comments" id="comments">
     
-      <div class="ds-thread" data-thread-key="2016/04/26/自定义带删除功能的EditText/"
-           data-title="自定义带删除功能的EditText" data-url="http://yoursite.com/2016/04/26/自定义带删除功能的EditText/">
+      <div class="ds-thread" data-thread-key="2016/07/02/Android绘图机制(五)/"
+           data-title="Android绘图机制(五)--SurfaceView" data-url="http://yoursite.com/2016/07/02/Android绘图机制(五)/">
       </div>
     
   </div>
@@ -565,7 +441,7 @@ mCleanEditText.setOnClickerListener(
         <nav class="site-state motion-element">
           <div class="site-state-item site-state-posts">
             <a href="/archives">
-              <span class="site-state-item-count">6</span>
+              <span class="site-state-item-count">19</span>
               <span class="site-state-item-name">日志</span>
             </a>
           </div>
@@ -575,7 +451,7 @@ mCleanEditText.setOnClickerListener(
           
             <div class="site-state-item site-state-tags">
               <a href="/tags">
-                <span class="site-state-item-count">1</span>
+                <span class="site-state-item-count">2</span>
                 <span class="site-state-item-name">标签</span>
               </a>
             </div>
@@ -604,7 +480,7 @@ mCleanEditText.setOnClickerListener(
               
             
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#提出问题"><span class="nav-number">1.</span> <span class="nav-text">提出问题</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#代码实现"><span class="nav-number">2.</span> <span class="nav-text">代码实现</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#写在最后"><span class="nav-number">3.</span> <span class="nav-text">写在最后</span></a></li></ol></div>
+              <p class="post-toc-empty">此文章未包含目录</p>
             
           </div>
         </section>

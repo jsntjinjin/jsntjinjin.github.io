@@ -87,7 +87,7 @@
 <meta property="og:site_name" content="麦芽糖的糖屋">
 <meta property="og:description" content="控件是每个app必不可少的一部分,无论是Android的系统控件,还是我们自定义的控件;而这些控件,组成了我们app的精美的界面.">
 <meta property="og:image" content="http://7xtdu4.com1.z0.glb.clouddn.com/Android%E7%B3%BB%E7%BB%9F%E6%8E%A7%E4%BB%B6%E4%B8%8E%E8%87%AA%E5%AE%9A%E4%B9%89%E6%8E%A7%E4%BB%B6%E4%B8%80.png">
-<meta property="og:updated_time" content="2016-04-27T12:42:56.579Z">
+<meta property="og:updated_time" content="2016-09-16T06:35:21.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Android系统控件与自定义控件(一)">
 <meta name="twitter:description" content="控件是每个app必不可少的一部分,无论是Android的系统控件,还是我们自定义的控件;而这些控件,组成了我们app的精美的界面.">
@@ -321,7 +321,8 @@
 <a id="more"></a>
 <h3 id="Android控件"><a href="#Android控件" class="headerlink" title="Android控件"></a>Android控件</h3><ol>
 <li>Andoird中的每个控件都是矩形.</li>
-<li><p>在Activity的onCreate()方法中我们都会使用setContentView()的方法来加载我们的布局文件,这样我们的布局内容才显示出来;首先我们来看看Android界面的架构图:<br><img src="http://7xtdu4.com1.z0.glb.clouddn.com/Android%E7%B3%BB%E7%BB%9F%E6%8E%A7%E4%BB%B6%E4%B8%8E%E8%87%AA%E5%AE%9A%E4%B9%89%E6%8E%A7%E4%BB%B6%E4%B8%80.png" alt=""></p>
+<li><p>在Activity的onCreate()方法中我们都会使用setContentView()的方法来加载我们的布局文件,这样我们的布局内容才显示出来;首先我们来看看Android界面的架构图:</p>
+<p> <img src="http://7xtdu4.com1.z0.glb.clouddn.com/Android%E7%B3%BB%E7%BB%9F%E6%8E%A7%E4%BB%B6%E4%B8%8E%E8%87%AA%E5%AE%9A%E4%B9%89%E6%8E%A7%E4%BB%B6%E4%B8%80.png" alt=""></p>
 <p> 如上图所示,每个Activity中都包含一个PhoneWindow对象,PhoneWindow对象又将一个DecorView设置为应用窗口的根View;DecorView对象作为一个窗口界面的顶层视图,封装了窗口的通用方法;DecorView又将窗口分为了两部分,一个是TitleView,一个是ContentView;这个ContentView就是我们所熟悉的;它是一个名为content的FrameLayout,而我们的布局文件就是设置在这个FrameLayout中.</p>
 </li>
 </ol>
@@ -330,70 +331,46 @@
 </blockquote>
 <h4 id="测量"><a href="#测量" class="headerlink" title="测量"></a>测量</h4><ul>
 <li>在现实生活中,我们在绘制一个东西的时候,首先我们需要测量东西的大小,而在Android中我们在onMeasure()方法中执行;</li>
-<li>Android给我们提供了MeasureSpec来实现我们的测量;<ul>
+<li><p>Android给我们提供了MeasureSpec来实现我们的测量;</p>
+<ul>
 <li><code>EXACTLY</code>: 精确值. 当指定为具体数值或者match_parent;</li>
-<li><code>AT_MOST</code>: 最大值. 当指定为wrap_content;</li>
+<li><p><code>AT_MOST</code>: 最大值. 当指定为wrap_content;</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div></pre></td><td class="code"><pre><div class="line"><span class="meta">@Override</span></div><div class="line"><span class="function"><span class="keyword">protected</span> <span class="keyword">void</span> <span class="title">onMeasure</span><span class="params">(<span class="keyword">int</span> widthMeasureSpec, <span class="keyword">int</span> heightMeasureSpec)</span> </span>&#123;</div><div class="line">    setMeasuredDimension(measureWidth(widthMeasureSpec), measureHeight(heightMeasureSpec));</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="function"><span class="keyword">private</span> <span class="keyword">int</span> <span class="title">measureWidth</span><span class="params">(<span class="keyword">int</span> measureSpec)</span> </span>&#123;</div><div class="line">    <span class="keyword">int</span> result = <span class="number">0</span>;</div><div class="line">    <span class="keyword">int</span> specMode = MeasureSpec.getMode(measureSpec);</div><div class="line">    <span class="keyword">int</span> specSize = MeasureSpec.getSize(measureSpec);</div><div class="line">    <span class="keyword">if</span> (specMode == MeasureSpec.EXACTLY) &#123;</div><div class="line">        result = specSize;</div><div class="line">    &#125; <span class="keyword">else</span> &#123;</div><div class="line">        result = <span class="number">200</span>; <span class="comment">//当为wrap_parent时指定默认的宽</span></div><div class="line">        <span class="keyword">if</span> (specMode == MeasureSpec.AT_MOST) &#123;</div><div class="line">            result = Math.min(result, specSize);</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line">    <span class="keyword">return</span> result;</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="function"><span class="keyword">private</span> <span class="keyword">int</span> <span class="title">measureHeight</span><span class="params">(<span class="keyword">int</span> measureSpec)</span> </span>&#123;</div><div class="line">    <span class="keyword">int</span> result = <span class="number">0</span>;</div><div class="line">    <span class="keyword">int</span> specMode = MeasureSpec.getMode(measureSpec);</div><div class="line">    <span class="keyword">int</span> specSize = MeasureSpec.getSize(measureSpec);</div><div class="line">    <span class="keyword">if</span> (specMode == MeasureSpec.EXACTLY) &#123;</div><div class="line">        result = specSize;</div><div class="line">    &#125; <span class="keyword">else</span> &#123;</div><div class="line">        result = <span class="number">200</span>; </div><div class="line">        <span class="keyword">if</span> (specMode == MeasureSpec.AT_MOST) &#123;</div><div class="line">            result = Math.min(result, specSize);</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line">    <span class="keyword">return</span> result;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+</li>
 </ul>
 </li>
 </ul>
-<pre><code>@Override
-protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
-    setMeasuredDimension(measureWidth(widthMeasureSpec), measureHeight(heightMeasureSpec));
-}
-
-private int measureWidth(int measureSpec) {
-    int result = 0;
-    int specMode = MeasureSpec.getMode(measureSpec);
-    int specSize = MeasureSpec.getSize(measureSpec);
-    if (specMode == MeasureSpec.EXACTLY) {
-        result = specSize;
-    } else {
-        result = 200; //当为wrap_parent时指定默认的宽
-        if (specMode == MeasureSpec.AT_MOST) {
-            result = Math.min(result, specSize);
-        }
-    }
-    return result;
-}
-
-private int measureHeight(int measureSpec) {
-    int result = 0;
-    int specMode = MeasureSpec.getMode(measureSpec);
-    int specSize = MeasureSpec.getSize(measureSpec);
-    if (specMode == MeasureSpec.EXACTLY) {
-        result = specSize;
-    } else {
-        result = 200; 
-        if (specMode == MeasureSpec.AT_MOST) {
-            result = Math.min(result, specSize);
-        }
-    }
-    return result;
-}
-</code></pre><h4 id="测量-用于ViewGroup"><a href="#测量-用于ViewGroup" class="headerlink" title="测量(用于ViewGroup)"></a>测量(用于ViewGroup)</h4><ul>
+<h4 id="测量-用于ViewGroup"><a href="#测量-用于ViewGroup" class="headerlink" title="测量(用于ViewGroup)"></a>测量(用于ViewGroup)</h4><ul>
 <li>ViewGroup在测量时通过遍历所有的子view,调用子view的Measure方法获得每个子view的测量结果;</li>
 <li>之后遍历来调用子view的Layout方法,并指定其具体的位置,从而决定布局位置;</li>
 <li>注意:如果需要支持wrap_parent的话,同样需要重写onMeasure()方法;</li>
 </ul>
 <h4 id="绘制"><a href="#绘制" class="headerlink" title="绘制"></a>绘制</h4><ul>
 <li><p>当我们测量好了之后就可以进行绘制了,Android中提供了onDraw()方法和Canvas来进行绘制;</p>
-<pre><code>@Override
-protected void onDraw(Canvas canvas) {
-    //绘制外层矩形
-    canvas.drawRect(0, 0, getMeasuredWidth(), getMeasuredHeight(), mPaint1);
-    //绘制内层矩形
-    canvas.drawRect(0, 0, getMeasuredWidth() - 10, getMeasuredHeight() - 10, mPaint2);
-    //用来保存Canvas的状态。save之后，可以调用Canvas的平移、放缩、旋转、错切、裁剪等操作
-    canvas.save();
-    canvas.translate(10, 0);
-    //textview 绘制文字
-    super.onDraw(canvas);
-    //用来恢复Canvas之前保存的状态。防止save后对Canvas执行的操作对后续的绘制有影响
-    canvas.restore();
-}
-</code></pre></li>
-<li>而ViewGroup通常不需要绘制,因为没有要绘制的内容.它会调用dispatchDraw()来绘制子view.</li>
+  <figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div></pre></td><td class="code"><pre><div class="line"><span class="meta">@Override</span></div><div class="line"><span class="function"><span class="keyword">protected</span> <span class="keyword">void</span> <span class="title">onDraw</span><span class="params">(Canvas canvas)</span> </span>&#123;</div><div class="line">    <span class="comment">//绘制外层矩形</span></div><div class="line">    canvas.drawRect(<span class="number">0</span>, <span class="number">0</span>, getMeasuredWidth(), getMeasuredHeight(), mPaint1);</div><div class="line">    <span class="comment">//绘制内层矩形</span></div><div class="line">    canvas.drawRect(<span class="number">0</span>, <span class="number">0</span>, getMeasuredWidth() - <span class="number">10</span>, getMeasuredHeight() - <span class="number">10</span>, mPaint2);</div><div class="line">    <span class="comment">//用来保存Canvas的状态。save之后，可以调用Canvas的平移、放缩、旋转、错切、裁剪等操作</span></div><div class="line">    canvas.save();</div><div class="line">    canvas.translate(<span class="number">10</span>, <span class="number">0</span>);</div><div class="line">    <span class="comment">//textview 绘制文字</span></div><div class="line">    <span class="keyword">super</span>.onDraw(canvas);</div><div class="line">    <span class="comment">//用来恢复Canvas之前保存的状态。防止save后对Canvas执行的操作对后续的绘制有影响</span></div><div class="line">    canvas.restore();</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+</li>
+<li><p>而ViewGroup通常不需要绘制,因为没有要绘制的内容.它会调用dispatchDraw()来绘制子view.</p>
+</li>
+<li>View的绘制过程遵循步骤:<ol>
+<li>绘制背景 background.draw(canvas)</li>
+<li>绘制自己 onDraw</li>
+<li>绘制children dispatchDraw</li>
+<li>绘制装饰 onDrawScrollBars</li>
+</ol>
+</li>
 </ul>
+<h3 id="自定义View的小细节"><a href="#自定义View的小细节" class="headerlink" title="自定义View的小细节"></a>自定义View的小细节</h3><ol>
+<li><p>让View支持wrap_content<br> 直接继承View或者ViewGroup的控件,如果不在onMeasure方法中对wrap_content做特殊的处理,那么当这个控件使用wrap_content的时候有可能出现特殊的问题.</p>
+</li>
+<li><p>如果有必要,让View支持padding<br> 直接继承View的控件,如果不在draw方法中处理padding,padding的属性不会生效.<br> 直接继承ViewGroup的控件需要在onMeasure和onLayout中考虑padding和子元素margin的影响,不然会导致padding和margin实效.</p>
+</li>
+<li><p>不要在View中使用Handler<br> 因为在View中已经提供了post方法,没必要使用Handler,除非需要使用Handler发送消息.</p>
+</li>
+<li><p>View中如果有动画或者线程需要及时停止,否则可能导致内存泄露<br> 可以使用View的onDetachedFromWindow和onAttachedtoWindow方法.<br> 当包含View的Activity退出或者View被remove掉,onDetachedFromWindow方法会被调用.<br> 当包含View的Activity启动的时候,onAttachedToWindow方法会被调用.</p>
+</li>
+<li><p>View可能带有滑动冲突,需要做好处理    </p>
+</li>
+</ol>
 
       
     </div>
@@ -431,7 +408,7 @@ protected void onDraw(Canvas canvas) {
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/2016/04/26/Android系统控件与自定义控件-二/" rel="prev" title="Android系统控件与自定义控件(二)">
+              <a href="/2016/04/27/Android系统控件与自定义控件-二/" rel="prev" title="Android系统控件与自定义控件(二)">
                 Android系统控件与自定义控件(二) <i class="fa fa-chevron-right"></i>
               </a>
             
@@ -505,7 +482,7 @@ protected void onDraw(Canvas canvas) {
         <nav class="site-state motion-element">
           <div class="site-state-item site-state-posts">
             <a href="/archives">
-              <span class="site-state-item-count">6</span>
+              <span class="site-state-item-count">19</span>
               <span class="site-state-item-name">日志</span>
             </a>
           </div>
@@ -515,7 +492,7 @@ protected void onDraw(Canvas canvas) {
           
             <div class="site-state-item site-state-tags">
               <a href="/tags">
-                <span class="site-state-item-count">1</span>
+                <span class="site-state-item-count">2</span>
                 <span class="site-state-item-name">标签</span>
               </a>
             </div>
@@ -544,7 +521,7 @@ protected void onDraw(Canvas canvas) {
               
             
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#Android控件"><span class="nav-number">1.</span> <span class="nav-text">Android控件</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#View的绘制原理"><span class="nav-number">2.</span> <span class="nav-text">View的绘制原理</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#测量"><span class="nav-number">2.1.</span> <span class="nav-text">测量</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#测量-用于ViewGroup"><span class="nav-number">2.2.</span> <span class="nav-text">测量(用于ViewGroup)</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#绘制"><span class="nav-number">2.3.</span> <span class="nav-text">绘制</span></a></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#Android控件"><span class="nav-number">1.</span> <span class="nav-text">Android控件</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#View的绘制原理"><span class="nav-number">2.</span> <span class="nav-text">View的绘制原理</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#测量"><span class="nav-number">2.1.</span> <span class="nav-text">测量</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#测量-用于ViewGroup"><span class="nav-number">2.2.</span> <span class="nav-text">测量(用于ViewGroup)</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#绘制"><span class="nav-number">2.3.</span> <span class="nav-text">绘制</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#自定义View的小细节"><span class="nav-number">3.</span> <span class="nav-text">自定义View的小细节</span></a></li></ol></div>
             
           </div>
         </section>

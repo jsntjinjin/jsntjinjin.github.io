@@ -1,0 +1,848 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next mist use-motion">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+  <link href="/vendors/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css"/>
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+<link href="/vendors/font-awesome/css/font-awesome.min.css?v=4.4.0" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.0.1" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="android," />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.0.1" />
+
+
+
+
+
+
+<meta name="description" content="提出问题如图所示,是一个我们现在应用中经常使用的一个控件,一个带删除功能的EditText,可能在你自己的app中所有的EditText控件都带删除功能,如果我们笨笨的使用线性或者相对布局来排列这三个控件,这样会出现两个问题:
+
+代码过长,不易于查看,想想如果一个界面里面出现3个以上这种控件,xml布局中会出现很冗长的重复代码;
+同样不易于维护,当产品要对整个app的EditText做出UI的修改">
+<meta property="og:type" content="article">
+<meta property="og:title" content="自定义带删除功能的EditText">
+<meta property="og:url" content="http://yoursite.com/2016/04/28/自定义带删除功能的EditText/index.html">
+<meta property="og:site_name" content="麦芽糖的糖屋">
+<meta property="og:description" content="提出问题如图所示,是一个我们现在应用中经常使用的一个控件,一个带删除功能的EditText,可能在你自己的app中所有的EditText控件都带删除功能,如果我们笨笨的使用线性或者相对布局来排列这三个控件,这样会出现两个问题:
+
+代码过长,不易于查看,想想如果一个界面里面出现3个以上这种控件,xml布局中会出现很冗长的重复代码;
+同样不易于维护,当产品要对整个app的EditText做出UI的修改">
+<meta property="og:image" content="http://7xtdu4.com1.z0.glb.clouddn.com/%E8%87%AA%E5%AE%9A%E4%B9%89%E5%B8%A6%E5%88%A0%E9%99%A4%E5%8A%9F%E8%83%BD%E7%9A%84EditText.gif">
+<meta property="og:updated_time" content="2016-09-14T08:06:44.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="自定义带删除功能的EditText">
+<meta name="twitter:description" content="提出问题如图所示,是一个我们现在应用中经常使用的一个控件,一个带删除功能的EditText,可能在你自己的app中所有的EditText控件都带删除功能,如果我们笨笨的使用线性或者相对布局来排列这三个控件,这样会出现两个问题:
+
+代码过长,不易于查看,想想如果一个界面里面出现3个以上这种控件,xml布局中会出现很冗长的重复代码;
+同样不易于维护,当产品要对整个app的EditText做出UI的修改">
+<meta name="twitter:image" content="http://7xtdu4.com1.z0.glb.clouddn.com/%E8%87%AA%E5%AE%9A%E4%B9%89%E5%B8%A6%E5%88%A0%E9%99%A4%E5%8A%9F%E8%83%BD%E7%9A%84EditText.gif">
+
+
+
+<script type="text/javascript" id="hexo.configuration">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    scheme: 'Mist',
+    sidebar: {"position":"left","display":"post"},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: 6257432996823959000,
+      author: '博主'
+    }
+  };
+</script>
+
+  <title> 自定义带删除功能的EditText | 麦芽糖的糖屋 </title>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+
+
+
+  <script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "//hm.baidu.com/hm.js?b425edbc8e016bd6209bac0f0803e780";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container one-collumn sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-meta ">
+  
+
+  <div class="custom-logo-site-title">
+    <a href="/"  class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <span class="site-title">麦芽糖的糖屋</span>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+  <p class="site-subtitle"></p>
+</div>
+
+<div class="site-nav-toggle">
+  <button>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+  </button>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-home fa-fw"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-archive fa-fw"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-tags fa-fw"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            
+              <i class="menu-item-icon fa fa-th fa-fw"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-commonweal">
+          <a href="/404.html" rel="section">
+            
+              <i class="menu-item-icon fa fa-heartbeat fa-fw"></i> <br />
+            
+            公益404
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                自定义带删除功能的EditText
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2016-04-28T22:55:33+08:00" content="2016-04-28">
+              2016-04-28
+            </time>
+          </span>
+
+          
+
+          
+            
+              <span class="post-comments-count">
+                &nbsp; | &nbsp;
+                <a href="/2016/04/28/自定义带删除功能的EditText/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/04/28/自定义带删除功能的EditText/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+
+          
+          
+             <span id="/2016/04/28/自定义带删除功能的EditText/" class="leancloud_visitors" data-flag-title="自定义带删除功能的EditText">
+               &nbsp; | &nbsp;
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               <span class="post-meta-item-text">阅读次数 </span>
+               <span class="leancloud-visitors-count"></span>
+              </span>
+          
+
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h3 id="提出问题"><a href="#提出问题" class="headerlink" title="提出问题"></a>提出问题</h3><p>如图所示,是一个我们现在应用中经常使用的一个控件,一个带删除功能的EditText,可能在你自己的app中所有的EditText控件都带删除功能,如果我们笨笨的使用线性或者相对布局来排列这三个控件,这样会出现两个问题:</p>
+<ol>
+<li>代码过长,不易于查看,想想如果一个界面里面出现3个以上这种控件,xml布局中会出现很冗长的重复代码;</li>
+<li><p>同样不易于维护,当产品要对整个app的EditText做出UI的修改的时候,你会发现很痛苦的在一个一个xml布局的修改,因为一个app要保证风格的统一,所有的对应的控件都需要修改;</p>
+<p> 所以当我们发现一个app的很多界面有相同的控件时,我们就要留心将他们封装成一个自定义的控件,在使用的时候我们就复用这个控件就可以了.</p>
+</li>
+</ol>
+<a id="more"></a>
+<p>效果图:</p>
+<p><img src="http://7xtdu4.com1.z0.glb.clouddn.com/%E8%87%AA%E5%AE%9A%E4%B9%89%E5%B8%A6%E5%88%A0%E9%99%A4%E5%8A%9F%E8%83%BD%E7%9A%84EditText.gif" alt=""></p>
+<h3 id="代码实现"><a href="#代码实现" class="headerlink" title="代码实现"></a>代码实现</h3><p>自定义控件我们通常分为两种:自定义组合控件和自定义全新的控件,而我这个控件是用自定义组合控件来实现的:</p>
+<ol>
+<li><p>定义属性</p>
+<pre><code>&lt;declare-styleable name=&quot;CleanEditText&quot;&gt;
+    &lt;attr name=&quot;leftImg&quot; format=&quot;reference&quot; /&gt;
+    &lt;attr name=&quot;rightImg&quot; format=&quot;reference&quot; /&gt;
+    &lt;attr name=&quot;hint&quot; format=&quot;string|reference&quot; /&gt;
+    &lt;attr name=&quot;text&quot; format=&quot;string|reference&quot; /&gt;
+    &lt;attr name=&quot;textColor&quot; format=&quot;color|reference&quot; /&gt;
+    &lt;attr name=&quot;textHintColor&quot; format=&quot;color|reference&quot;/&gt;
+&lt;/declare-styleable&gt;
+</code></pre></li>
+<li><p>定义自定义控件的布局</p>
+</li>
+<li><p>定义自定义控件</p>
+<pre><code>public CleanEditText(Context context, AttributeSet attrs){
+
+    View view = LayoutInflater.from(context).inflate(R.layout.weight_clear_edittext, this, true);
+    leftImg = (ImageView) view.findViewById(R.id.iv_left);
+    rightImg = (ImageView) view.findViewById(R.id.iv_right);
+    et_text = (EditText) view.findViewById(R.id.et_text);
+    et_text.addTextChangedListener(textWatcher);
+    rightImg.setVisibility(View.INVISIBLE);
+
+    rightImg.setOnClickListener(new OnClickListener() {
+      @Override
+      public void onClick(View v) {
+          et_text.setText(&quot;&quot;);
+      }
+    });
+    TypedArray ta = context.obtainStyledAttributes(attrs, R.styleable.CleanEditText);
+
+    设置属性(将属性通过ta.getString(),getColor()等方法获取自定义的属性值)
+
+    ta.recycle();
+}
+</code></pre></li>
+<li><p>对edittext的监听(删除功能)</p>
+<pre><code>//输入框文本变化监听器
+private TextWatcher textWatcher = new TextWatcher() {
+    @Override
+    public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+    }
+
+    @Override
+    public void afterTextChanged(Editable s) {
+    }
+
+    @Override
+    public void onTextChanged(CharSequence s, int start, int before, int count) {
+        if (TextUtils.isEmpty(s)) {
+            rightImg.setVisibility(View.INVISIBLE);
+        } else {
+            rightImg.setVisibility(View.VISIBLE);
+        }
+    }
+};
+</code></pre></li>
+<li><p>对外提供各种修改的set,get方法(getEditText()方法将et暴露出去可以提供各种其他的客制化,如设置inputType属性等)</p>
+<pre><code>protected void setHint(String hint) {
+    et_text.setHint(hint);
+}
+
+protected void setText(String text) {
+    et_text.setText(text);
+}
+
+protected String getText() {
+    return et_text.getText().toString();
+}
+
+protected EditText getEditText() {
+    return et_text;
+}
+</code></pre></li>
+<li><p>定制化的行为,点击左边图片有特定的事件,所以我们在不同的界面中实现的功能是不一样的,这样我们就不能在其中直接添加具体的实现逻辑,通过接口回调的方式,将具体的实现交由调用者自己事件(没有在工程中实现)</p>
+<pre><code>//在控件中定义一个接口,创建方法
+public interface CleanEditTextClickListener{
+    //左边图片的点击事件
+    void leftClick();
+}
+
+//暴露方法,交由调用者调用来实现接口回调
+public void setOnClickerListener(CleanEditTextClickListener mListener){
+    this.mListener = mListener
+}
+
+//在控件中添加点击事件,但是不要去实现,而是调用接口中相应的方法
+leftImg.setOnClickListener(new OnClickListener(){
+    @Override
+    public void onClick(View v){
+        mListener.leftClick();
+    }
+});
+
+//调用者实现接口回调
+mCleanEditText.setOnClickerListener(
+    new CleanEditTextClickListener(){
+        @Override
+        public void leftClick(){
+            //定义事件
+        }
+    }
+);
+</code></pre></li>
+<li><p>交由调用者来使用,在xml布局中</p>
+<pre><code>&lt;com.jinjin.clearedittext.CleanEditText
+    xmlns:app=&quot;http://schemas.android.com/apk/res-auto&quot;
+    android:layout_width=&quot;match_parent&quot;
+    android:layout_height=&quot;wrap_content&quot;
+    app:hint=&quot;请输入用户名&quot;
+    app:leftImg=&quot;@drawable/icon_login_user&quot;
+    app:rightImg=&quot;@drawable/icon_delete&quot;
+    app:text=&quot;输入的text&quot;
+    app:textColor=&quot;#ff0000&quot;/&gt;
+</code></pre></li>
+</ol>
+<h3 id="写在最后"><a href="#写在最后" class="headerlink" title="写在最后"></a>写在最后</h3><p>这只是一个最简单的自定义组合控件,但是在复杂的组合控件都是由以上这些步骤实现的:</p>
+<pre><code>定义属性-&gt;组合控件-&gt;定义接口-&gt;调用者使用.
+</code></pre><p>链接:    <a href="https://github.com/jsntjinjin/CleanEditText" target="_blank" rel="external">CleanEditText</a></p>
+
+      
+    </div>
+    
+    <div>
+      
+        
+      
+    </div>
+
+    <div>
+      
+        
+      
+    </div>
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/android/" rel="tag">#android</a>
+          
+        </div>
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2016/04/27/Android系统控件与自定义控件-二/" rel="next" title="Android系统控件与自定义控件(二)">
+                <i class="fa fa-chevron-left"></i> Android系统控件与自定义控件(二)
+              </a>
+            
+          </div>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2016/04/30/Android-点击头像拍照或者从图库中选择/" rel="prev" title="Android 点击头像拍照或者从图库中选择">
+                Android 点击头像拍照或者从图库中选择 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+      <div class="ds-thread" data-thread-key="2016/04/28/自定义带删除功能的EditText/"
+           data-title="自定义带删除功能的EditText" data-url="http://yoursite.com/2016/04/28/自定义带删除功能的EditText/">
+      </div>
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel ">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="http://7xtdu4.com1.z0.glb.clouddn.com/head.jpg"
+               alt="麦芽糖" />
+          <p class="site-author-name" itemprop="name">麦芽糖</p>
+          <p class="site-description motion-element" itemprop="description">如果不努力做点什么，一辈子得多无趣。</p>
+        </div>
+        <nav class="site-state motion-element">
+          <div class="site-state-item site-state-posts">
+            <a href="/archives">
+              <span class="site-state-item-count">19</span>
+              <span class="site-state-item-name">日志</span>
+            </a>
+          </div>
+
+          
+
+          
+            <div class="site-state-item site-state-tags">
+              <a href="/tags">
+                <span class="site-state-item-count">2</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+        </div>
+
+        
+        
+
+        
+        
+
+      </section>
+
+      
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+            
+              
+            
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#提出问题"><span class="nav-number">1.</span> <span class="nav-text">提出问题</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#代码实现"><span class="nav-number">2.</span> <span class="nav-text">代码实现</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#写在最后"><span class="nav-number">3.</span> <span class="nav-text">写在最后</span></a></li></ol></div>
+            
+          </div>
+        </section>
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy;  2015 - 
+  <span itemprop="copyrightYear">2016</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">麦芽糖</span>
+</div>
+
+<div class="powered-by">
+  由 <a class="theme-link" href="http://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Mist
+  </a>
+</div>
+
+        
+
+        
+      </div>
+    </footer>
+
+    <div class="back-to-top">
+      <i class="fa fa-arrow-up"></i>
+    </div>
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+  
+  <script type="text/javascript" src="/vendors/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/vendors/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/vendors/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/vendors/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/vendors/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/vendors/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.0.1"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.0.1"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.0.1"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.0.1"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.0.1"></script>
+
+
+
+  
+
+  
+    
+  
+
+  <script type="text/javascript">
+    var duoshuoQuery = {short_name:"jsntjinjin"};
+    (function() {
+      var ds = document.createElement('script');
+      ds.type = 'text/javascript';ds.async = true;
+      ds.id = 'duoshuo-script';
+      ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+      ds.charset = 'UTF-8';
+      (document.getElementsByTagName('head')[0]
+      || document.getElementsByTagName('body')[0]).appendChild(ds);
+    })();
+  </script>
+
+  
+    
+  
+
+
+
+
+
+  
+  
+  
+
+  
+
+  
+  <script src="https://cdn1.lncld.net/static/js/av-core-mini-0.6.1.js"></script>
+  <script>AV.initialize("LmRIoo2M1t3jy0O5AF96Qfq6-gzGzoHsz", "tQhIifuHvyRNMrwlTo8qf45l");</script>
+  <script>
+    function showTime(Counter) {
+      var query = new AV.Query(Counter);
+      var entries = [];
+      var $visitors = $(".leancloud_visitors");
+
+      $visitors.each(function () {
+        entries.push( $(this).attr("id").trim() );
+      });
+
+      query.containedIn('url', entries);
+      query.find()
+        .done(function (results) {
+          var COUNT_CONTAINER_REF = '.leancloud-visitors-count';
+
+          if (results.length === 0) {
+            $visitors.find(COUNT_CONTAINER_REF).text(0);
+            return;
+          }
+
+          for (var i = 0; i < results.length; i++) {
+            var item = results[i];
+            var url = item.get('url');
+            var time = item.get('time');
+            var element = document.getElementById(url);
+
+            $(element).find(COUNT_CONTAINER_REF).text(time);
+          }
+        })
+        .fail(function (object, error) {
+          console.log("Error: " + error.code + " " + error.message);
+        });
+    }
+
+    function addCount(Counter) {
+      var $visitors = $(".leancloud_visitors");
+      var url = $visitors.attr('id').trim();
+      var title = $visitors.attr('data-flag-title').trim();
+      var query = new AV.Query(Counter);
+
+      query.equalTo("url", url);
+      query.find({
+        success: function(results) {
+          if (results.length > 0) {
+            var counter = results[0];
+            counter.fetchWhenSave(true);
+            counter.increment("time");
+            counter.save(null, {
+              success: function(counter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(counter.get('time'));
+              },
+              error: function(counter, error) {
+                console.log('Failed to save Visitor num, with error message: ' + error.message);
+              }
+            });
+          } else {
+            var newcounter = new Counter();
+            newcounter.set("title", title);
+            newcounter.set("url", url);
+            newcounter.set("time", 1);
+            newcounter.save(null, {
+              success: function(newcounter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(newcounter.get('time'));
+              },
+              error: function(newcounter, error) {
+                console.log('Failed to create');
+              }
+            });
+          }
+        },
+        error: function(error) {
+          console.log('Error:' + error.code + " " + error.message);
+        }
+      });
+    }
+
+    $(function() {
+      var Counter = AV.Object.extend("Counter");
+      if ($('.leancloud_visitors').length == 1) {
+        addCount(Counter);
+      } else if ($('.post-title-link').length > 1) {
+        showTime(Counter);
+      }
+    });
+  </script>
+
+
+
+  
+
+</body>
+</html>
