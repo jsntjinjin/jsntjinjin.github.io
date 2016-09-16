@@ -80,16 +80,16 @@
 
 
 
-<meta name="description" content="前文提到android系统控件的机制,我们可以通过继承系统组件,方便的拓展功能,甚至可以直接自定义一个控件,实现Android系统中没有的功能.适当的使用自定义View,可以大大提高我们的开发效率和应用的体验效果,但是滥用自定义View则会带来适得其反的效果.">
+<meta name="description" content="View作为Android中最重要的一部分,我们需要弄明白View的方方面面,本篇文章用来学习View的事件方面的知识.">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Android系统控件与自定义控件(二)">
-<meta property="og:url" content="http://yoursite.com/2016/04/27/Android系统控件与自定义控件-二/index.html">
+<meta property="og:title" content="View的事件体系(二)--View的滑动">
+<meta property="og:url" content="http://yoursite.com/2016/09/10/View的事件体系(二)/index.html">
 <meta property="og:site_name" content="麦芽糖的糖屋">
-<meta property="og:description" content="前文提到android系统控件的机制,我们可以通过继承系统组件,方便的拓展功能,甚至可以直接自定义一个控件,实现Android系统中没有的功能.适当的使用自定义View,可以大大提高我们的开发效率和应用的体验效果,但是滥用自定义View则会带来适得其反的效果.">
-<meta property="og:updated_time" content="2016-09-14T08:06:38.000Z">
+<meta property="og:description" content="View作为Android中最重要的一部分,我们需要弄明白View的方方面面,本篇文章用来学习View的事件方面的知识.">
+<meta property="og:updated_time" content="2016-09-16T08:26:44.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Android系统控件与自定义控件(二)">
-<meta name="twitter:description" content="前文提到android系统控件的机制,我们可以通过继承系统组件,方便的拓展功能,甚至可以直接自定义一个控件,实现Android系统中没有的功能.适当的使用自定义View,可以大大提高我们的开发效率和应用的体验效果,但是滥用自定义View则会带来适得其反的效果.">
+<meta name="twitter:title" content="View的事件体系(二)--View的滑动">
+<meta name="twitter:description" content="View作为Android中最重要的一部分,我们需要弄明白View的方方面面,本篇文章用来学习View的事件方面的知识.">
 
 
 
@@ -107,7 +107,7 @@
   };
 </script>
 
-  <title> Android系统控件与自定义控件(二) | 麦芽糖的糖屋 </title>
+  <title> View的事件体系(二)--View的滑动 | 麦芽糖的糖屋 </title>
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
@@ -257,7 +257,7 @@
             
             
               
-                Android系统控件与自定义控件(二)
+                View的事件体系(二)--View的滑动
               
             
           </h1>
@@ -269,8 +269,8 @@
               <i class="fa fa-calendar-o"></i>
             </span>
             <span class="post-meta-item-text">发表于</span>
-            <time itemprop="dateCreated" datetime="2016-04-27T20:33:30+08:00" content="2016-04-27">
-              2016-04-27
+            <time itemprop="dateCreated" datetime="2016-09-10T19:43:51+08:00" content="2016-09-10">
+              2016-09-10
             </time>
           </span>
 
@@ -280,8 +280,8 @@
             
               <span class="post-comments-count">
                 &nbsp; | &nbsp;
-                <a href="/2016/04/27/Android系统控件与自定义控件-二/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/04/27/Android系统控件与自定义控件-二/" itemprop="commentsCount"></span>
+                <a href="/2016/09/10/View的事件体系(二)/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/09/10/View的事件体系(二)/" itemprop="commentsCount"></span>
                 </a>
               </span>
             
@@ -291,7 +291,7 @@
 
           
           
-             <span id="/2016/04/27/Android系统控件与自定义控件-二/" class="leancloud_visitors" data-flag-title="Android系统控件与自定义控件(二)">
+             <span id="/2016/09/10/View的事件体系(二)/" class="leancloud_visitors" data-flag-title="View的事件体系(二)--View的滑动">
                &nbsp; | &nbsp;
                <span class="post-meta-item-icon">
                  <i class="fa fa-eye"></i>
@@ -313,28 +313,37 @@
       
 
       
-        <blockquote>
-<p>前文提到android系统控件的机制,我们可以通过继承系统组件,方便的拓展功能,甚至可以直接自定义一个控件,实现Android系统中没有的功能.<br>适当的使用自定义View,可以大大提高我们的开发效率和应用的体验效果,但是滥用自定义View则会带来适得其反的效果.</p>
-</blockquote>
+        <p>View作为Android中最重要的一部分,我们需要弄明白View的方方面面,本篇文章用来学习View的事件方面的知识.</p>
 <a id="more"></a>
-<h3 id="View中比较重要的回调方法"><a href="#View中比较重要的回调方法" class="headerlink" title="View中比较重要的回调方法"></a>View中比较重要的回调方法</h3><ul>
-<li>onFinishInflate():从布局文件加载后回调;</li>
-<li>onSizeChanged():当组件大小发生改变的时候回调;</li>
-<li>onMeasure():回调进行测量;</li>
-<li>onLayout():回调确认显示的位置;</li>
-<li>onTouchEvent():监听触摸事件;</li>
-</ul>
-<h3 id="对现有控件进行拓展"><a href="#对现有控件进行拓展" class="headerlink" title="对现有控件进行拓展"></a>对现有控件进行拓展</h3><p>通过继承现有的系统控件,对其进行拓展,增加新的功能,修改显示的效果.</p>
-<h3 id="自定义组合控件"><a href="#自定义组合控件" class="headerlink" title="自定义组合控件"></a>自定义组合控件</h3><blockquote>
-<p>当一个app中需要使用到大量的相同形式的UI界面的时候,通常可以使用这种控件.</p>
-</blockquote>
-<p>通过继承一个适当的ViewGroup,在ViewGroup中添加子View的形式组合成一个新的组合控件.通常我们会通过自定义属性的方式给这个组合控件更高的扩展性.</p>
-<p><strong>一个小例子</strong> : <a href="http://jsntjinjin.github.io/2016/04/26/%E8%87%AA%E5%AE%9A%E4%B9%89%E5%B8%A6%E5%88%A0%E9%99%A4%E5%8A%9F%E8%83%BD%E7%9A%84EditText/" target="_blank" rel="external">自定义带删除功能的EditText</a></p>
-<h3 id="覆写View创建全新的控件"><a href="#覆写View创建全新的控件" class="headerlink" title="覆写View创建全新的控件"></a>覆写View创建全新的控件</h3><blockquote>
-<p>当系统的控件无法满足我们的生产需求的时候,我们可以通过这种方式创建一个新的控件来实现我们所需要的需求.</p>
-</blockquote>
-<p>通过继承View,并重写onMeasure(),onDraw()等view的方法来实现我们所需要的界面逻辑,重写onTouchEvent()等方法来实现交互方面的逻辑.</p>
-<p><strong>一个小例子</strong> : 待续</p>
+<h3 id="View的滑动"><a href="#View的滑动" class="headerlink" title="View的滑动"></a>View的滑动</h3><ol>
+<li><p>使用scrollTo/scrollBy</p>
+ <figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">scrollTo</span><span class="params">(<span class="keyword">int</span> x, <span class="keyword">int</span> y)</span> </span>&#123;</div><div class="line">       <span class="keyword">if</span> (mScrollX != x || mScrollY != y) &#123;</div><div class="line">           <span class="keyword">int</span> oldX = mScrollX;</div><div class="line">           <span class="keyword">int</span> oldY = mScrollY;</div><div class="line">           mScrollX = x;</div><div class="line">           mScrollY = y;</div><div class="line">           invalidateParentCaches();</div><div class="line">           onScrollChanged(mScrollX, mScrollY, oldX, oldY);</div><div class="line">           <span class="keyword">if</span> (!awakenScrollBars()) &#123;</div><div class="line">               postInvalidateOnAnimation();</div><div class="line">           &#125;</div><div class="line">       &#125;</div><div class="line">   &#125;</div><div class="line">   <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">scrollBy</span><span class="params">(<span class="keyword">int</span> x, <span class="keyword">int</span> y)</span> </span>&#123;</div><div class="line">       scrollTo(mScrollX + x, mScrollY + y);</div><div class="line">   &#125;</div></pre></td></tr></table></figure>
+<p> 从源码中我们可以看出,scrollBy也是调用了scrollTo方法;<br> scrollTo是绝对滑动,而scrollBy是相对滑动;</p>
+<p> 滑动View的时候,滑动的是View的内容,View本身不能被滑动:<br> 当从左向右滑动的时候,mScrollX为负值,否则为正值;<br> 当从上向下滑动的时候,mScrollY为负值,否则为正值;</p>
+</li>
+<li><p>使用动画(施工中)</p>
+<p> 使用动画移动View,主要操作的是translationX和translationY属性;</p>
+<ol>
+<li>使用View动画</li>
+<li>使用属性动画</li>
+</ol>
+</li>
+<li><p>改变布局参数</p>
+<p> 通过改变LayoutParams的参数来实现移动</p>
+</li>
+</ol>
+<h3 id="弹性滑动"><a href="#弹性滑动" class="headerlink" title="弹性滑动"></a>弹性滑动</h3><ol>
+<li><p>使用Scroller</p>
+<p> 首先通过调用startScroll()保存传递的参数<br> —&gt;调用invalidate()重绘View<br> —&gt;重绘的时候View会调用draw()方法,方法中会调用computeScroll()方法<br> —&gt;我们重写的computeScroll()方法会获取当前的scrollX和scrollY并调用scrollTo滑动<br> —&gt;调用postInvalidate()重复;<br> 直到整个滑动结束.</p>
+</li>
+<li><p>使用动画</p>
+ <figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">final</span> <span class="keyword">int</span> startX = <span class="number">0</span>;</div><div class="line"><span class="keyword">final</span> <span class="keyword">int</span> deltaX = <span class="number">100</span>;</div><div class="line">ValueAnimator animator = ValueAnimator.ofInt(<span class="number">0</span>, <span class="number">1</span>).setDuration(<span class="number">1000</span>);</div><div class="line">animator.addUpdateListener(<span class="keyword">new</span> ValueAnimator.AnimatorUpdateListener() &#123;</div><div class="line">	<span class="meta">@Override</span></div><div class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">onAnimationUpdate</span><span class="params">(ValueAnimator animation)</span> </span>&#123;</div><div class="line">		<span class="keyword">float</span> fraction = animation.getAnimatedFraction();</div><div class="line">		btn_connect.scrollTo(startX + (<span class="keyword">int</span>) (deltaX * fraction), <span class="number">0</span>);</div><div class="line">	&#125;</div><div class="line">&#125;);</div></pre></td></tr></table></figure>
+<p> 另外,我们可以通过这种方法,在onAnimationUpdate实现一些我们想要的操作.</p>
+</li>
+<li><p>使用延时策略</p>
+<p> 我们可以通过Handler的延时机制来延时发送消息,再在消息中移动view,当连续发送延时消息的时候,就可以实现弹性滑动.</p>
+</li>
+</ol>
 
       
     </div>
@@ -364,16 +373,16 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2016/04/26/Android系统控件与自定义控件-一/" rel="next" title="Android系统控件与自定义控件(一)">
-                <i class="fa fa-chevron-left"></i> Android系统控件与自定义控件(一)
+              <a href="/2016/09/03/View的事件体系(一)/" rel="next" title="View的事件体系(一)--基础知识">
+                <i class="fa fa-chevron-left"></i> View的事件体系(一)--基础知识
               </a>
             
           </div>
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/2016/04/28/自定义带删除功能的EditText/" rel="prev" title="自定义带删除功能的EditText">
-                自定义带删除功能的EditText <i class="fa fa-chevron-right"></i>
+              <a href="/2016/09/16/View的事件体系(三)/" rel="prev" title="View的事件体系(三)--View的事件分发机制以及解决滑动冲突">
+                View的事件体系(三)--View的事件分发机制以及解决滑动冲突 <i class="fa fa-chevron-right"></i>
               </a>
             
           </div>
@@ -400,8 +409,8 @@
           
   <div class="comments" id="comments">
     
-      <div class="ds-thread" data-thread-key="2016/04/27/Android系统控件与自定义控件-二/"
-           data-title="Android系统控件与自定义控件(二)" data-url="http://yoursite.com/2016/04/27/Android系统控件与自定义控件-二/">
+      <div class="ds-thread" data-thread-key="2016/09/10/View的事件体系(二)/"
+           data-title="View的事件体系(二)--View的滑动" data-url="http://yoursite.com/2016/09/10/View的事件体系(二)/">
       </div>
     
   </div>
@@ -485,7 +494,7 @@
               
             
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#View中比较重要的回调方法"><span class="nav-number">1.</span> <span class="nav-text">View中比较重要的回调方法</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#对现有控件进行拓展"><span class="nav-number">2.</span> <span class="nav-text">对现有控件进行拓展</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#自定义组合控件"><span class="nav-number">3.</span> <span class="nav-text">自定义组合控件</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#覆写View创建全新的控件"><span class="nav-number">4.</span> <span class="nav-text">覆写View创建全新的控件</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#View的滑动"><span class="nav-number">1.</span> <span class="nav-text">View的滑动</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#弹性滑动"><span class="nav-number">2.</span> <span class="nav-text">弹性滑动</span></a></li></ol></div>
             
           </div>
         </section>
